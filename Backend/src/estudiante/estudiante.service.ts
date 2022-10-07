@@ -1,100 +1,46 @@
 import { Injectable } from '@nestjs/common';
-import { Estudiante } from './estudiante.model';
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import { Estudiante } from './estudiante.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
+
+
 
 @Injectable()
 export class EstudianteService {
-  private estudiantes: EstudianteEntity;
-  insertEstudiante(
-    documento: number,
-    nombre_completo: string,
-    telefono_fijo: number,
-    celular: number,
-    correo_estudiantil: string,
-    correo_personal: string,
-    codigo_plan: number,
-  ) {
-    const newEstudiante = new Estudiante(
-      documento,
-      nombre_completo,
-      telefono_fijo,
-      celular,
-      correo_estudiantil,
-      correo_personal,
-      codigo_plan,
-    );
 
-    this.estudiantes.(newEstudiante);
-    return documento;
+  constructor(@InjectRepository(Estudiante) private estudianteRepository: Repository<Estudiante>){
+    
+  }
+
+  insertEstudiante(estudiante: Estudiante) {
+    this.estudianteRepository.save(estudiante)
+    return estudiante.documento;
   }
 
   getEstudiantes() {
-    return [...this.estudiantes];
+    return this.estudianteRepository.find();
   }
 
   getEstudiante(documento: number) {
-    return this.getEstudiantePorDocumento(documento);
+    return this.estudianteRepository.findOneBy({documento});
   }
 
-  updateEstudiante(
-    documento: number,
-    nombre_completo: string,
-    telefono_fijo: number,
-    celular: number,
-    correo_estudiantil: string,
-    correo_personal: string,
-    codigo_plan: number,
-  ) {
-    const [targetEstudiante, index] = this.getEstudiantePorDocumento(documento);
-    //New Estudiante Param
-    const nep = {
-      ...targetEstudiante,
-      documento,
-      nombre_completo,
-      telefono_fijo,
-      celular,
-      correo_estudiantil,
-      correo_personal,
-      codigo_plan,
-    };
-    const newEstudiante = new Estudiante(
-      nep.documento,
-      nep.nombre_completo,
-      nep.telefono_fijo,
-      nep.celular,
-      nep.correo_estudiantil,
-      nep.correo_personal,
-      nep.codigo_plan,
-    );
-    this.estudiantes[index] = newEstudiante;
-    return newEstudiante;
+  async updateEstudiante(estudiante: Estudiante, documento: number) {
+    const estudianteEncontrado = await this.estudianteRepository.findOneBy({documento});
+    estudiante.nombre_completo ? estudianteEncontrado.nombre_completo = estudiante.nombre_completo : estudianteEncontrado.nombre_completo =  estudianteEncontrado.nombre_completo 
+    estudiante.telefono_fijo ? estudianteEncontrado.telefono_fijo = estudiante.telefono_fijo : estudianteEncontrado.telefono_fijo =  estudianteEncontrado.telefono_fijo 
+    estudiante.celular ? estudianteEncontrado.celular = estudiante.celular : estudianteEncontrado.celular =  estudianteEncontrado.celular 
+    estudiante.correo_estudiantil ? estudianteEncontrado.correo_estudiantil = estudiante.correo_estudiantil : estudianteEncontrado.correo_estudiantil =  estudianteEncontrado.correo_estudiantil 
+    estudiante.correo_personal ? estudianteEncontrado.correo_personal = estudiante.correo_personal : estudianteEncontrado.correo_personal =  estudianteEncontrado.correo_personal 
+    estudiante.codigo_plan ? estudianteEncontrado.codigo_plan = estudiante.codigo_plan : estudianteEncontrado.codigo_plan =  estudianteEncontrado.codigo_plan 
+    await this.estudianteRepository.save(estudianteEncontrado)
+    return {message: 'UPDATE CORRECTLY'}
   }
 
-  private getEstudiantePorDocumento(documento: number): [Estudiante, number] {
-    const index = this.estudiantes.findIndex((e) => e.documento == documento);
-    return [this.estudiantes[index], index];
-  }
 
   deleteEstudiante(documento: number){
-    const[target, index] = this.getEstudiantePorDocumento(documento);
-    this.estudiantes.splice(index, 1)
+    this.estudianteRepository.delete({documento})
   }
 }
 
-@Entity()
-export class EstudianteEntity {
-    @PrimaryGeneratedColumn()
-    documento: number
-    @Column()
-    nombre_completo: string
-    @Column()
-    telefono_fijo: number
-    @Column()
-    celular: number
-    @Column()
-    correo_estudiantil: string
-    @Column()
-    correo_personal: string
-    @Column()
-    codigo_plan: number
-}

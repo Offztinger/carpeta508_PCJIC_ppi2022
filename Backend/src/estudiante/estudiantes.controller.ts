@@ -2,14 +2,13 @@ import { EstudianteService } from './estudiante.service';
 import { Body, Controller, Get, Param, Post, Put, Delete } from '@nestjs/common';
 import { Estudiante } from './estudiante.entity';
 
+/**
+ * Este es el controlador para la entidad estudiante, requiere de un 
+ */
+
 @Controller('estudiante')
 export class EstudianteController {
   constructor(private readonly estudianteService: EstudianteService) {}
-
-  //   @Get()
-  //   getEstudiante() {
-  //     return 'Hello';
-  //   }
 
   @Post()
   insertEstudiante(

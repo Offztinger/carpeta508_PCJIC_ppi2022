@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { backendURL } from "./config/constants";
 import { estudiante } from "./config/constants";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./styles/styles.scss";
+import "./styles/styles.css";
 
 function App() {
   const [estudiantes, setEstudiantes] = useState([]);
@@ -16,13 +16,12 @@ function App() {
     codigo_plan: "",
   });
   const fetchApi = async () => {
-    const response = await fetch(backendURL + estudiante, { mode: "cors" });
+    const response = await fetch(backendURL + estudiante, {
+      mode: "cors",
+    });
     const responseJSON = await response.json();
     setEstudiantes(responseJSON);
   };
-  useEffect(() => {
-    fetchApi();
-  }, []);
 
   function handleChange(e) {
     const inputValue = e.target.value;
@@ -30,12 +29,24 @@ function App() {
       ...formulario,
       [e.target.name]: inputValue,
     });
-    console.log(formulario);
   }
+
+  const postEstudiante = async () => {
+    const data = formulario;
+    await fetch(backendURL + estudiante, {
+      method: "POST",
+      mode: "no-cors", // no-cors, *cors, same-origin
+      body: JSON.stringify(data),
+    });
+  };
+
+  useEffect(() => {
+    fetchApi();
+  }, []);
 
   return (
     <div className="contenedorPrincipal d-flex flex-column align-items-center">
-      <div className="w-75">
+      <div style={{ width: "95%" }}>
         <table className="table">
           <thead>
             <tr>
@@ -61,7 +72,11 @@ function App() {
                   <td>{estudiante.correo_personal}</td>
                   <td>{estudiante.codigo_plan}</td>
                   <td>
-                    <button style={{marginRight: "8px"}} type="button" className="btn btn-success">
+                    <button
+                      style={{ marginRight: "8px" }}
+                      type="button"
+                      className="btn btn-success"
+                    >
                       Editar
                     </button>
                     <button type="button" class="btn btn-danger">
@@ -76,7 +91,7 @@ function App() {
       </div>
       <div className="d-flex flex-column align-items-center">
         <h2>Registra un estudiante</h2>
-        <form>
+        <div>
           <div className="form-group">
             <label>Documento</label>
             <input
@@ -153,9 +168,11 @@ function App() {
             />
           </div>
           <div className="form-group">
-            <button className="btn btn-primary">Crear estudiante</button>
+            <button onClick={postEstudiante} className="btn btn-primary">
+              Crear estudiante
+            </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

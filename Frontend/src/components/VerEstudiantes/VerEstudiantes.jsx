@@ -1,15 +1,29 @@
+import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 function VerEstudiantes({ estudiantes }) {
-
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <div className="contenedorEstudiantes">
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <div style={{ width: "95%" }}>
         <table className="table">
           <thead>
@@ -41,26 +55,14 @@ function VerEstudiantes({ estudiantes }) {
                 >
                   Editar
                 </button>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  variant="primary"
+                  onClick={handleShow}
+                >
                   Eliminar
                 </button>
-                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        Hola, soy un modal
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </td>
             </tr>
             {estudiantes.map((estudiante, index) => {
@@ -95,4 +97,4 @@ function VerEstudiantes({ estudiantes }) {
   );
 }
 
-export default VerEstudiantes
+export default VerEstudiantes;

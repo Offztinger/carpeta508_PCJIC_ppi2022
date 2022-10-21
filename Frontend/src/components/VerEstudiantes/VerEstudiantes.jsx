@@ -55,6 +55,7 @@ function VerEstudiantes({ estudiantes }) {
                 >
                   Editar
                 </button>
+
                 <button
                   type="button"
                   class="btn btn-danger"

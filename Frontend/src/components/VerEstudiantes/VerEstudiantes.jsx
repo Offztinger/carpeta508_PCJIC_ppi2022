@@ -12,19 +12,19 @@ function VerEstudiantes({ estudiantes }) {
     <div className="contenedorEstudiantes">
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Eliminar registro</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Body>Esta apunto de eliminar un registro</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            ¡No!
           </Button>
           <Button variant="primary" onClick={handleClose}>
-            Save Changes
+            Sí, deseo eliminarlo
           </Button>
         </Modal.Footer>
       </Modal>
-      <div style={{ width: "95%" }}>
+      <div>
         <table className="table">
           <thead>
             <tr>
@@ -39,33 +39,6 @@ function VerEstudiantes({ estudiantes }) {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-              <td>5</td>
-              <td>6</td>
-              <td>7</td>
-              <td>
-                <button
-                  style={{ marginRight: "8px" }}
-                  type="button"
-                  className="btn btn-success"
-                >
-                  Editar
-                </button>
-
-                <button
-                  type="button"
-                  class="btn btn-danger"
-                  variant="primary"
-                  onClick={handleShow}
-                >
-                  Eliminar
-                </button>
-              </td>
-            </tr>
             {estudiantes.map((estudiante, index) => {
               return (
                 <tr key={index}>
@@ -84,7 +57,11 @@ function VerEstudiantes({ estudiantes }) {
                     >
                       Editar
                     </button>
-                    <button type="button" class="btn btn-danger">
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      onClick={handleShow}
+                    >
                       Eliminar
                     </button>
                   </td>

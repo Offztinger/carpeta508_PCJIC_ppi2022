@@ -75,7 +75,11 @@ function RegistrarEstudiantes() {
         </Modal.Header>
         <Modal.Body>"Se ha creado correctamente el registro"</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button
+            variant="secondary"
+            className="btn btn-dark"
+            onClick={handleClose}
+          >
             Quedarse
           </Button>
           <Link

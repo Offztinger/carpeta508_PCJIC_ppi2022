@@ -5,7 +5,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/styles.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import VerEstudiantes from "./components/VerEstudiantes/VerEstudiantes";
-import RegistrarEstudiantes from "./components/RegistrarEstudiantes/RegistrarEstudiantes";
+import RegistrarEstudiantes from "./components/RegistrarEstudiantes/RegistrarEstudiantes";  
+import EditarEstudiantes from "./components/EditarEstudiantes/EditarEstudiantes";
 
 // import RegistrarEstudiantes from "./components/RegistrarEstudiantes/RegistrarEstudiantes";
 
@@ -34,9 +35,12 @@ function App() {
             element={<VerEstudiantes estudiantes={estudiantes} />}
           />
           <Route
-            exact
             path="/createEstudiante"
             element={<RegistrarEstudiantes />}
+          />
+          <Route
+            path="/editEstudiante"
+            element={<EditarEstudiantes estudiantes={estudiantes}/>}
           />
         </Routes>
       </Router>

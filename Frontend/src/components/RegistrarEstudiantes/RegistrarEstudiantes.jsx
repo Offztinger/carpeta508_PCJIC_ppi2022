@@ -19,6 +19,7 @@ function RegistrarEstudiantes() {
     correo_estudiantil: "",
     correo_personal: "",
     codigo_plan: "",
+    correo_personal: "",
   });
 
   function handleChange(e) {

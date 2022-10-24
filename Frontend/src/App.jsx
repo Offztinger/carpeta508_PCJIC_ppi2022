@@ -16,7 +16,6 @@ function App() {
   const fetchApi = async () => {
     const response = await fetch("http://localhost:8080/estudiante", {
       method: "GET",
-      // mode: "no-cors",
     });
     const responseJSON = await response.json();
     setEstudiantes(responseJSON);
@@ -27,7 +26,7 @@ function App() {
   }, []);
 
   return (
-    <div className="contenedorPrincipal d-flex flex-column align-items-center">
+    <div className="contenedorPrincipal d-flex flex-column align-items-center justify-content-center">
       <Router>
         <Routes>
           <Route
@@ -35,10 +34,13 @@ function App() {
             path="/"
             element={<VerEstudiantes estudiantes={estudiantes} />}
           />
-          <Route path="/registrar" element={<RegistrarEstudiantes/>  }/>
           <Route
-            path="/editar"
-            element={<EditarEstudiantes estudiantes={estudiantes} />}
+            path="/createEstudiante"
+            element={<RegistrarEstudiantes />}
+          />
+          <Route
+            path="/editEstudiante"
+            element={<EditarEstudiantes estudiantes={estudiantes}/>}
           />
         </Routes>
       </Router>

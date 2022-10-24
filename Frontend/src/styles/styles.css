@@ -1,3 +1,12 @@
-.form-group{
-    margin-top: 16px;
+.form-group {
+  margin-top: 16px;
+}
+
+.contenedorPrincipal {
+  width: 100vw;
+  height: 100vh;
+}
+
+table thead tr th {
+    text-align: center;
 }

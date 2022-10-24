@@ -5,13 +5,21 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Axios from "axios";
+import { Link } from "react-router-dom";
 
 
 function EditarEstudiantes({ estudiantes }) {
+
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    
+    const [deleteIDEs, setDeleteIDEs] = useState();
+    const deleteEstudiante = () => {
+        const response = fetch(`http://localhost:8080/estudiante/${deleteIDEs}`, {
+            method: "DELETE",
+        });
+        console.log("DELETE Works!");
+    };
 
     const [formulario, setFormulario] = useState({
         documento: "",
@@ -31,7 +39,7 @@ function EditarEstudiantes({ estudiantes }) {
             [e.target.name]: inputValue,
         });
     }
-
+    
     const postEstudiante = () => {
         const data = JSON.stringify(formulario);
         Axios.post(
@@ -58,34 +66,37 @@ function EditarEstudiantes({ estudiantes }) {
                 console.error(error);
             });
 
-
-        const fetchApi = async () => {
-            const response = await fetch("http://localhost:8080/estudiante", {
-                method: "GET",
-                // mode: "no-cors",
-            });
-            const responseJSON = await response.json();
-            setEstudiantes(responseJSON);
-        };
     };
 
     return (
         <div className="contenedorEstudiantes">
+            <br />
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Eliminar registro</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>Esta apunto de eliminar un registro</Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button
+                        variant="secondary"
+                        className="btn btn-dark"
+                        onClick={handleClose}
+                    >
                         ¡No!
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button
+                        variant="primary"
+                        className="btn btn-warning"
+                        onClick={() => {
+                            deleteEstudiante();
+                            handleClose();
+                        }}
+                    >
                         Sí, deseo eliminarlo
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <div>
+            <div className="d-flex w-100 flex-column align-items-center">
                 <table className="table">
                     <thead>
                         <tr>
@@ -107,7 +118,7 @@ function EditarEstudiantes({ estudiantes }) {
                                     <td>{estudiante.nombre_completo}</td>
                                     <td>{estudiante.telefono_fijo}</td>
                                     <td>{estudiante.celular}</td>
-                                    <td>{estudiante.correo_institucional}</td>
+                                    <td>{estudiante.correo_estudiantil}</td>
                                     <td>{estudiante.correo_personal}</td>
                                     <td>{estudiante.codigo_plan}</td>
                                     <td>
@@ -121,7 +132,10 @@ function EditarEstudiantes({ estudiantes }) {
                                         <button
                                             type="button"
                                             class="btn btn-danger"
-                                            onClick={handleShow}
+                                            onClick={() => {
+                                                handleShow();
+                                                setDeleteIDEs(estudiante.documento);
+                                            }}
                                         >
                                             Eliminar
                                         </button>
@@ -133,7 +147,7 @@ function EditarEstudiantes({ estudiantes }) {
                 </table>
             </div>
             <div className="d-flex flex-column align-items-center">
-                <br/>
+                <br />
                 <h2>Edita un estudiante</h2>
                 <div>
                     <div className="form-group">
@@ -208,7 +222,7 @@ function EditarEstudiantes({ estudiantes }) {
                     </div>
                     <div className="form-group">
                         <button onClick={postEstudiante} className="btn btn-primary">
-                            Crear estudiante
+                            Actualizar estudiante
                         </button>
                     </div>
                 </div>

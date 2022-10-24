@@ -1,5 +1,4 @@
 import { backendURL } from "../../config/constants";
-import { estudiante } from "../../config/constants";
 import { useState } from "react";
 import React from "react";
 import Axios from "axios";
@@ -14,6 +13,7 @@ function RegistrarEstudiantes() {
     correo_institucional: "",
     correo_personal: "",
     codigo_plan: "",
+    correo_personal: "",
   });
 
   function handleChange(e) {
@@ -53,6 +53,7 @@ function RegistrarEstudiantes() {
 
   return (
     <div className="d-flex flex-column align-items-center">
+      <br/>
       <h2>Registra un estudiante</h2>
       <div>
         <div className="form-group">

@@ -8,6 +8,7 @@ function VerEstudiantes({ estudiantes }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  
   return (
     <div className="contenedorEstudiantes">
       <Modal show={show} onHide={handleClose}>

@@ -3,11 +3,21 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { Link } from "react-router-dom";
+import Axios from "axios";
 
 function VerEstudiantes({ estudiantes }) {
+  const [deleteIDEs, setDeleteIDEs] = useState();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const deleteEstudiante = () => {
+    const response = fetch(`http://localhost:8080/estudiante/${deleteIDEs}`, {
+      method: "DELETE",
+    });
+    console.log("DELETE Works!");
+  };
+
   return (
     <div className="contenedorEstudiantes">
       <Modal show={show} onHide={handleClose}>
@@ -16,15 +26,30 @@ function VerEstudiantes({ estudiantes }) {
         </Modal.Header>
         <Modal.Body>Esta apunto de eliminar un registro</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button
+            variant="secondary"
+            className="btn btn-dark"
+            onClick={handleClose}
+          >
             ¡No!
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button
+            variant="primary"
+            className="btn btn-warning"
+            onClick={() => {
+              deleteEstudiante();
+              handleClose();
+            }}
+          >
             Sí, deseo eliminarlo
           </Button>
         </Modal.Footer>
       </Modal>
-      <div>
+      <div className="d-flex w-100 flex-column align-items-center">
+        <Link className="w-50 mb-3 btn btn-success" to="/createEstudiante">
+          Crear estudiante
+        </Link>
+
         <table className="table">
           <thead>
             <tr>
@@ -46,7 +71,7 @@ function VerEstudiantes({ estudiantes }) {
                   <td>{estudiante.nombre_completo}</td>
                   <td>{estudiante.telefono_fijo}</td>
                   <td>{estudiante.celular}</td>
-                  <td>{estudiante.correo_institucional}</td>
+                  <td>{estudiante.correo_estudiantil}</td>
                   <td>{estudiante.correo_personal}</td>
                   <td>{estudiante.codigo_plan}</td>
                   <td>
@@ -60,7 +85,10 @@ function VerEstudiantes({ estudiantes }) {
                     <button
                       type="button"
                       class="btn btn-danger"
-                      onClick={handleShow}
+                      onClick={() => {
+                        handleShow();
+                        setDeleteIDEs(estudiante.documento);
+                      }}
                     >
                       Eliminar
                     </button>

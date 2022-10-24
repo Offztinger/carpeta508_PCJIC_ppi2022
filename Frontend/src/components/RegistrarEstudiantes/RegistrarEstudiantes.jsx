@@ -1,17 +1,22 @@
-import { backendURL } from "../../config/constants";
-import { estudiante } from "../../config/constants";
 import { useState } from "react";
 import React from "react";
 import Axios from "axios";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { Link } from "react-router-dom";
 // import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 function RegistrarEstudiantes() {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const [formulario, setFormulario] = useState({
     documento: "",
     nombre_completo: "",
     telefono_fijo: "",
     celular: "",
-    correo_institucional: "",
+    correo_estudiantil: "",
     correo_personal: "",
     codigo_plan: "",
   });
@@ -23,9 +28,8 @@ function RegistrarEstudiantes() {
       [e.target.name]: inputValue,
     });
   }
-
+  let statusEstudiante = "";
   const postEstudiante = () => {
-    const data = JSON.stringify(formulario);
     Axios.post(
       "http://localhost:8080/estudiante",
       {
@@ -33,7 +37,7 @@ function RegistrarEstudiantes() {
         nombre_completo: formulario.nombre_completo,
         telefono_fijo: formulario.telefono_fijo,
         celular: formulario.celular,
-        correo_institucional: formulario.correo_institucional,
+        correo_estudiantil: formulario.correo_estudiantil,
         correo_personal: formulario.correo_personal,
         codigo_plan: formulario.codigo_plan,
       },
@@ -44,15 +48,46 @@ function RegistrarEstudiantes() {
       }
     )
       .then((res) => {
-        console.log(res);
+        // if (res.status === 201) {
+        //   statusEstudiante = "Se ha creado correctamente el registro";
+        // } else {
+        //   statusEstudiante = "Ups! No se ha creado el registro";
+        // }
+        console.log(`CÓDIGO POST ESTUDIANTE: ${res.status}`);
       })
       .catch((error) => {
         console.error(error);
       });
   };
 
+  function multipleFunction() {
+    postEstudiante();
+    setTimeout(() => {
+      handleShow();
+    }, 2000);
+  }
+
   return (
     <div className="d-flex flex-column align-items-center">
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Estado registro</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>"Se ha creado correctamente el registro"</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Quedarse
+          </Button>
+          <Link
+            to="/"
+            variant="primary"
+            className="btn btn-success"
+            onClick={handleClose}
+          >
+            Ver Registros
+          </Link>
+        </Modal.Footer>
+      </Modal>
       <h2>Registra un estudiante</h2>
       <div>
         <div className="form-group">
@@ -104,9 +139,9 @@ function RegistrarEstudiantes() {
           <label>Correo institucional</label>
           <input
             type="email"
-            name="correo_institucional"
+            name="correo_estudiantil"
             className="form-control"
-            value={formulario.correo_institucional}
+            value={formulario.correo_estudiantil}
             onChange={handleChange}
           />
         </div>
@@ -131,7 +166,7 @@ function RegistrarEstudiantes() {
           />
         </div>
         <div className="form-group">
-          <button onClick={postEstudiante} className="btn btn-primary">
+          <button onClick={multipleFunction} className="btn btn-success">
             Crear estudiante
           </button>
         </div>

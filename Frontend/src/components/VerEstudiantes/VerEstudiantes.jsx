@@ -4,9 +4,8 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
-import Axios from "axios";
 
-function VerEstudiantes({ estudiantes }) {
+function VerEstudiantes({ estudiantes, setPutIDEs }) {
   const [deleteIDEs, setDeleteIDEs] = useState();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -15,7 +14,7 @@ function VerEstudiantes({ estudiantes }) {
     const response = fetch(`http://localhost:8080/estudiante/${deleteIDEs}`, {
       method: "DELETE",
     });
-    console.log("DELETE Works!");
+    console.log("DELETE status" + response.status());
   };
 
   return (
@@ -75,13 +74,15 @@ function VerEstudiantes({ estudiantes }) {
                   <td>{estudiante.correo_personal}</td>
                   <td>{estudiante.codigo_plan}</td>
                   <td>
-                    <button
+                    <Link
                       style={{ marginRight: "8px" }}
                       type="button"
                       className="btn btn-success"
+                      onClick={() => setPutIDEs(estudiante.documento)}
+                      to="/editEstudiante"
                     >
                       Editar
-                    </button>
+                    </Link>
                     <button
                       type="button"
                       class="btn btn-danger"

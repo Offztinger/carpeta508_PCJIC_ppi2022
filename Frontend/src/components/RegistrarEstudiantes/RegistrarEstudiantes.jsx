@@ -19,7 +19,6 @@ function RegistrarEstudiantes() {
     correo_estudiantil: "",
     correo_personal: "",
     codigo_plan: "",
-    correo_personal: "",
   });
 
   function handleChange(e) {
@@ -29,7 +28,6 @@ function RegistrarEstudiantes() {
       [e.target.name]: inputValue,
     });
   }
-  let statusEstudiante = "";
   const postEstudiante = () => {
     Axios.post(
       "http://localhost:8080/estudiante",

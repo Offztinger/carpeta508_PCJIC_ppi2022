@@ -5,13 +5,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/styles.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import VerEstudiantes from "./components/VerEstudiantes/VerEstudiantes";
-import RegistrarEstudiantes from "./components/RegistrarEstudiantes/RegistrarEstudiantes";  
+import RegistrarEstudiantes from "./components/RegistrarEstudiantes/RegistrarEstudiantes";
 import EditarEstudiantes from "./components/EditarEstudiantes/EditarEstudiantes";
 
 // import RegistrarEstudiantes from "./components/RegistrarEstudiantes/RegistrarEstudiantes";
 
 function App() {
   const [estudiantes, setEstudiantes] = useState([]);
+  const [putIDEs, setPutIDEs] = useState();
 
   const fetchApi = async () => {
     const response = await fetch("http://localhost:8080/estudiante", {
@@ -32,15 +33,20 @@ function App() {
           <Route
             exact
             path="/"
-            element={<VerEstudiantes estudiantes={estudiantes} />}
+            element={
+              <VerEstudiantes
+                estudiantes={estudiantes}
+                setPutIDEs={setPutIDEs}
+              />
+            }
           />
+          <Route path="/createEstudiante" element={<RegistrarEstudiantes />} />
           <Route
-            path="/createEstudiante"
-            element={<RegistrarEstudiantes />}
-          />
-          <Route
+            exact
             path="/editEstudiante"
-            element={<EditarEstudiantes estudiantes={estudiantes}/>}
+            element={
+              <EditarEstudiantes putIDEs={putIDEs} setPutIDEs={setPutIDEs} />
+            }
           />
         </Routes>
       </Router>

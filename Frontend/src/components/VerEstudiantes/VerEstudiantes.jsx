@@ -8,21 +8,16 @@ import { Link } from "react-router-dom";
 function VerEstudiantes({ estudiantes, setPutIDEs }) {
   const [deleteIDEs, setDeleteIDEs] = useState();
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const deleteEstudiante = () => {
     const response = fetch(`http://localhost:8080/estudiante/${deleteIDEs}`, {
       method: "DELETE",
     });
-    console.log("DELETE status" + response.status());
+    // console.log("DELETE status" + response.status());
   };
-  const multiplefunction = ()=>{
-    deleteEstudiante();
-    setShow(false);
-  }
+
   return (
     <div className="contenedorEstudiantes">
-      <Modal show={show} onHide={handleClose} >
+      <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Eliminar registro</Modal.Title>
         </Modal.Header>
@@ -31,7 +26,7 @@ function VerEstudiantes({ estudiantes, setPutIDEs }) {
           <Button
             variant="secondary"
             className="btn btn-dark"
-            onClick={handleClose}
+            onClick={() => setShow(false)}
           >
             ¡No!
           </Button>
@@ -39,7 +34,7 @@ function VerEstudiantes({ estudiantes, setPutIDEs }) {
             variant="primary"
             className="btn btn-warning"
             onClick={() => {
-              handleClose()
+              setShow(false);
               deleteEstudiante();
             }}
           >
@@ -48,9 +43,17 @@ function VerEstudiantes({ estudiantes, setPutIDEs }) {
         </Modal.Footer>
       </Modal>
       <div className="d-flex w-100 flex-column align-items-center">
-        <Link className="w-50 mb-3 btn btn-success" to="/createEstudiante">
-          Crear estudiante
-        </Link>
+        <div className="d-flex w-100 justify-content-around">
+          <Link className="mb-3 btn btn-success" to="/createEstudiante">
+            Crear estudiante
+          </Link>
+          <Link className="mb-3 btn btn-success" to="/createEquipo">
+            Crear equipo
+          </Link>
+          <Link className="mb-3 btn btn-success" to="/readEquipos">
+            Ver equipos
+          </Link>
+        </div>
 
         <table className="table">
           <thead>
@@ -90,7 +93,7 @@ function VerEstudiantes({ estudiantes, setPutIDEs }) {
                       type="button"
                       class="btn btn-danger"
                       onClick={() => {
-                        handleShow();
+                        setShow(true);
                         setDeleteIDEs(estudiante.documento);
                       }}
                     >

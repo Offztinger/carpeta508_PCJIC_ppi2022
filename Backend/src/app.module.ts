@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER } from './config/constants';
+import { Equipo } from './equipo/equipo.entity';
+import { EquipoModule } from './equipo/equipo.module';
 import { Estudiante } from './estudiante/estudiante.entity';
 import { EstudianteModule } from './estudiante/estudiante.module';
 
@@ -22,12 +24,12 @@ import { EstudianteModule } from './estudiante/estudiante.module';
         username: configService.get<string>(DB_USER),
         password: configService.get<string>(DB_PASSWORD),
         database: configService.get<string>(DB_NAME),
-        entities: [Estudiante],
+        entities: [Estudiante, Equipo],
         synchronize: true,
       }),
       inject: [ConfigService],
     }),
-    EstudianteModule
+    EstudianteModule, EquipoModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -4,8 +4,9 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
 
-const ModalBootstrap = ({ show, handleClose, isError }) => {
-  console.log(show);
+
+const ModalBootstrap = ({ show, handleClose, isError, Msg }) => {
+  console.log(show)
   return ReactDOM.createPortal(
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -14,7 +15,7 @@ const ModalBootstrap = ({ show, handleClose, isError }) => {
       {isError ? (
         <Modal.Body>Ups! Algo salió mal.</Modal.Body>
       ) : (
-        <Modal.Body>Se ha creado correctamente el registro.</Modal.Body>
+        <Modal.Body>{Msg}</Modal.Body>
       )}
       <Modal.Footer>
         <Button

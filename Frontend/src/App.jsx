@@ -7,7 +7,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import VerEstudiantes from "./components/VerEstudiantes/VerEstudiantes";
 import RegistrarEstudiantes from "./components/RegistrarEstudiantes/RegistrarEstudiantes";
 import EditarEstudiantes from "./components/EditarEstudiantes/EditarEstudiantes";
-
+import VerEquipos from "./components/VerEquipos/VerEquipos";
+import CrearEquipos from "./components/CrearEquipos/CrearEquipos";
+import { Link } from "react-router-dom";
 // import RegistrarEstudiantes from "./components/RegistrarEstudiantes/RegistrarEstudiantes";
 
 function App() {
@@ -48,6 +50,8 @@ function App() {
               <EditarEstudiantes putIDEs={putIDEs} setPutIDEs={setPutIDEs} />
             }
           />
+          <Route exact path="/readEquipos" element={<VerEquipos />} />
+          <Route exact path="/createEquipo" element={<CrearEquipos />} />
         </Routes>
       </Router>
     </div>

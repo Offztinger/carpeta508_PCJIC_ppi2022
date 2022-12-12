@@ -38,7 +38,7 @@ function EditarEstudiantes({ putIDEs, setPutIDEs }) {
 
   const updateEstudiante = () => {
     Axios.put(
-      `http://localhost:8080/estudiante/${putIDEs}`,
+      `http://ec2-34-228-18-38.compute-1.amazonaws.com:8080/estudiante/${putIDEs}`,
       {
         documento: putEstudiante.documento,
         nombre_completo: putEstudiante.nombre_completo,

@@ -27,7 +27,7 @@ function RegistrarEstudiantes() {
   }
   const postEstudiante = () => {
     Axios.post(
-      "http://localhost:8080/estudiante",
+      "http://ec2-34-228-18-38.compute-1.amazonaws.com:8080/estudiante",
       {
         documento: formulario.documento,
         nombre_completo: formulario.nombre_completo,

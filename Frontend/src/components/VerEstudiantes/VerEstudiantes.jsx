@@ -11,7 +11,7 @@ function VerEstudiantes({ estudiantes, setPutIDEs }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const deleteEstudiante = () => {
-    const response = fetch(`http://localhost:8080/estudiante/${deleteIDEs}`, {
+    const response = fetch(`http://ec2-34-228-18-38.compute-1.amazonaws.com:8080//estudiante/${deleteIDEs}`, {
       method: "DELETE",
     });
     console.log("DELETE status" + response.status());

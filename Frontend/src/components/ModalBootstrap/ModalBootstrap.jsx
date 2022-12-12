@@ -5,9 +5,8 @@ import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
 
 const ModalBootstrap = ({ show, handleClose, isError }) => {
-  console.log(show)
+  console.log(show);
   return ReactDOM.createPortal(
-
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Estado registro</Modal.Title>
@@ -34,8 +33,7 @@ const ModalBootstrap = ({ show, handleClose, isError }) => {
           Ver Registros
         </Link>
       </Modal.Footer>
-    </Modal>
-    ,
+    </Modal>,
     document.getElementById("modal")
   );
 };

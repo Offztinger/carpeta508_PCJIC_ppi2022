@@ -23,7 +23,7 @@ function CrearEquipos() {
 
   const postEquipo = () => {
     Axios.post(
-      "http://localhost:8080/equipo",
+      "http://ec2-34-228-18-38.compute-1.amazonaws.com:8080/equipo",
       {
         nombre_completo: formulario.nombre_completo,
         modulo_sol: formulario.modulo_sol,

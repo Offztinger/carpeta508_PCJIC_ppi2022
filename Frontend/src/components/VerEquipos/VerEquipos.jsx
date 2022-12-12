@@ -9,7 +9,7 @@ function VerEquipos() {
   const [deleteIDEs, setDeleteIDEs] = useState();
   const [show, setShow] = useState(false);
   const fetchApi = async () => {
-    const response = await fetch("http://localhost:8080/equipo", {
+    const response = await fetch("http://ec2-34-228-18-38.compute-1.amazonaws.com:8080/equipo", {
       method: "GET",
     });
     const responseJSON = await response.json();
@@ -21,7 +21,7 @@ function VerEquipos() {
   }, []);
 
   const deleteEquipo = () => {
-    const response = fetch(`http://localhost:8080/equipo/${deleteIDEs}`, {
+    const response = fetch(`http://ec2-34-228-18-38.compute-1.amazonaws.com:8080/equipo/${deleteIDEs}`, {
       method: "DELETE",
     });
     // console.log("DELETE status" + response.status());

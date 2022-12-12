@@ -1,16 +1,12 @@
 import { useState } from "react";
 import React from "react";
 import Axios from "axios";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { Link } from "react-router-dom";
+import ModalBootstrap from "../ModalBootstrap/ModalBootstrap";
+
 // import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 function RegistrarEstudiantes() {
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   const [formulario, setFormulario] = useState({
     documento: "",
     nombre_completo: "",
@@ -20,6 +16,7 @@ function RegistrarEstudiantes() {
     correo_personal: "",
     codigo_plan: "",
   });
+  const [isError, setIsError] = useState(false);
 
   function handleChange(e) {
     const inputValue = e.target.value;
@@ -47,50 +44,27 @@ function RegistrarEstudiantes() {
       }
     )
       .then((res) => {
-        // if (res.status === 201) {
-        //   statusEstudiante = "Se ha creado correctamente el registro";
-        // } else {
-        //   statusEstudiante = "Ups! No se ha creado el registro";
-        // }
         console.log(`CÓDIGO POST ESTUDIANTE: ${res.status}`);
+        setIsError(false);
       })
       .catch((error) => {
         console.error(error);
+        setIsError(true);
       });
   };
 
   function multipleFunction() {
     postEstudiante();
-    setTimeout(() => {
-      handleShow();
-    }, 2000);
+    setShow(true);
   }
 
   return (
     <div className="d-flex flex-column align-items-center">
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Estado registro</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>"Se ha creado correctamente el registro"</Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            className="btn btn-dark"
-            onClick={handleClose}
-          >
-            Quedarse
-          </Button>
-          <Link
-            to="/"
-            variant="primary"
-            className="btn btn-success"
-            onClick={handleClose}
-          >
-            Ver Registros
-          </Link>
-        </Modal.Footer>
-      </Modal>
+      <ModalBootstrap
+        show={show}
+        handleClose={() => setShow(false)}
+        isError={isError}
+      />
       <h2>Registra un estudiante</h2>
       <div>
         <div className="form-group">

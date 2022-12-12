@@ -7,14 +7,14 @@ export class Estudiante {
     @Column()
     nombre_completo: string
     @Column()
-    telefono_fijo: number
+    telefono_fijo: string
     @Column()
-    celular: number
+    celular: string
     @Column()
     correo_estudiantil: string
     @Column()
     correo_personal: string
     @Column()
-    codigo_plan: number
+    codigo_plan: string
 }
 

@@ -15,7 +15,7 @@ function App() {
   const [putIDEs, setPutIDEs] = useState();
 
   const fetchApi = async () => {
-    const response = await fetch("http://localhost:8080/estudiante", {
+    const response = await fetch("http://ec2-34-228-18-38.compute-1.amazonaws.com:8080/estudiante", {
       method: "GET",
     });
     const responseJSON = await response.json();

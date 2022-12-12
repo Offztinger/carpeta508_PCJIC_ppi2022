@@ -15,6 +15,7 @@ function VerEstudiantes({ estudiantes, setPutIDEs }) {
       method: "DELETE",
     });
     console.log("DELETE status" + response.status());
+    
   };
 
   return (

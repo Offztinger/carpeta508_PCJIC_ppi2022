@@ -15,16 +15,18 @@ function VerEstudiantes({ estudiantes, setPutIDEs }) {
       method: "DELETE",
     });
     console.log("DELETE status" + response.status());
-    
   };
-
+  const multiplefunction = ()=>{
+    deleteEstudiante();
+    setShow(false);
+  }
   return (
     <div className="contenedorEstudiantes">
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} >
         <Modal.Header closeButton>
           <Modal.Title>Eliminar registro</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Esta apunto de eliminar un registro</Modal.Body>
+        <Modal.Body>Está seguro que desea eliminar este registro?</Modal.Body>
         <Modal.Footer>
           <Button
             variant="secondary"
@@ -37,8 +39,8 @@ function VerEstudiantes({ estudiantes, setPutIDEs }) {
             variant="primary"
             className="btn btn-warning"
             onClick={() => {
+              handleClose()
               deleteEstudiante();
-              handleClose();
             }}
           >
             Sí, deseo eliminarlo

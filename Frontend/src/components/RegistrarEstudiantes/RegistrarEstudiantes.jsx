@@ -64,6 +64,7 @@ function RegistrarEstudiantes() {
         show={show}
         handleClose={() => setShow(false)}
         isError={isError}
+        Msg={'Se ha creado el registro exitosamente'}
       />
       <h2>Registra un estudiante</h2>
       <div>

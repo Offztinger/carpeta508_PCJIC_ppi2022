@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Axios from "axios";
 import { Link } from "react-router-dom";
+import ModalBootstrap from "../ModalBootstrap/ModalBootstrap";
 
 function EditarEstudiantes({ putIDEs, setPutIDEs }) {
   const [show, setShow] = useState(false);
@@ -72,29 +73,11 @@ function EditarEstudiantes({ putIDEs, setPutIDEs }) {
   return (
     <div className="contenedorEstudiantes">
       <br />
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Estado registro</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Se ha actualizado correctamente el registro</Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            className="btn btn-dark"
-            onClick={handleClose}
-          >
-            Quedarse
-          </Button>
-          <Link
-            to="/"
-            variant="primary"
-            className="btn btn-success"
-            onClick={handleClose}
-          >
-            Ver Registros
-          </Link>
-        </Modal.Footer>
-      </Modal>
+      <ModalBootstrap
+        show={show}
+        handleClose={() => setShow(false)}
+        Msg={('Se han editado correctamente los datos')}
+      />
       <div className="d-flex flex-column align-items-center">
         <br />
         <h2>Edita un estudiante</h2>

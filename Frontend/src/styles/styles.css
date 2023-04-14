@@ -10,3 +10,9 @@
 table thead tr th {
     text-align: center;
 }
+
+button{
+  background: none;
+  border: none;
+  outline: none;
+}

@@ -32,42 +32,42 @@ function App() {
   document.addEventListener("DOMContentLoaded", function () {
 
   
-  let popupOpen = false; // Variable para rastrear si la ventana emergente está abierta
-
-  // Función para mostrar o ocultar la ventana emergente
-  function togglePopup() {
-    const popup = document.getElementById("notification-popup");
-    if (popupOpen) {
+    let popupOpen = false; // Variable para rastrear si la ventana emergente está abierta
+  
+    // Función para mostrar o ocultar la ventana emergente
+    function togglePopup() {
+      const popup = document.getElementById("notification-popup");
+      if (popupOpen) {
+        popup.style.display = "none";
+        popupOpen = false;
+      } else {
+        popup.style.display = "block";
+        popupOpen = true;
+      }
+    }
+    
+    // Agregar un evento de clic al botón de notificación
+    const notificationBtn = document.getElementById("notification-btn");
+    notificationBtn.addEventListener("click", function (event) {
+      event.stopPropagation(); // Detener la propagación del evento de clic para evitar que se cierre la ventana emergente
+      togglePopup();
+    });
+    
+    // Agregar un evento de clic al documento para cerrar la ventana emergente si se hace clic en otro lugar de la página
+    document.addEventListener("click", function (event) {
+      const popup = document.getElementById("notification-popup");
+      if (popupOpen && event.target !== notificationBtn && event.target !== popup && !popup.contains(event.target)) {
+        togglePopup();
+      }
+    });
+    
+    // Agregar un evento de carga para ocultar la ventana emergente al cargar la página
+    window.addEventListener("load", function () {
+      const popup = document.getElementById("notification-popup");
       popup.style.display = "none";
       popupOpen = false;
-    } else {
-      popup.style.display = "block";
-      popupOpen = true;
-    }
-  }
-  
-  // Agregar un evento de clic al botón de notificación
-  const notificationBtn = document.getElementById("notification-btn");
-  notificationBtn.addEventListener("click", function (event) {
-    event.stopPropagation(); // Detener la propagación del evento de clic para evitar que se cierre la ventana emergente
-    togglePopup();
+    });
   });
-  
-  // Agregar un evento de clic al documento para cerrar la ventana emergente si se hace clic en otro lugar de la página
-  document.addEventListener("click", function (event) {
-    const popup = document.getElementById("notification-popup");
-    if (popupOpen && event.target !== notificationBtn && event.target !== popup && !popup.contains(event.target)) {
-      togglePopup();
-    }
-  });
-  
-  // Agregar un evento de carga para ocultar la ventana emergente al cargar la página
-  window.addEventListener("load", function () {
-    const popup = document.getElementById("notification-popup");
-    popup.style.display = "none";
-    popupOpen = false;
-  });
-});
   return (
     <div>
       <div className="header">

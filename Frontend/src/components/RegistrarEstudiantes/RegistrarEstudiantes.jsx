@@ -66,7 +66,7 @@ function RegistrarEstudiantes() {
         isError={isError}
         Msg={'Se ha creado el registro exitosamente'}
       />
-      <h2>Registra un estudiante</h2>
+      <h2 style={{ color: "white" }}>Registra un estudiante</h2>
       <div>
         <div className="form-group">
           <label>Documento</label>

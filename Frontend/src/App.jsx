@@ -16,6 +16,8 @@ import RegistrarAsesores from "./components/CrearAsesores/RegistrarAsesores";
 import VerDocentes from "./components/VerDocentes/VerDocentes";
 import VerAsesores from "./components/VerAsesores/VerAsesores";
 import RegistrarCitas from "./components/CrearCitas/RegistrarCitas";
+import Calendar from "./components/CalendarComponent/calendarComponet";
+import Sidebar from "./components/Sidebar/Sidebar";
 // import RegistrarEstudiantes from "./components/RegistrarEstudiantes/RegistrarEstudiantes";
 
 function App() {
@@ -102,38 +104,50 @@ function App() {
           </div>
         </div>
       </div>
-      <div className="contenedorPrincipal d-flex flex-column align-items-center justify-content-center">
+
+      <div className="d-flex">
         <Router>
-          <Routes>
-            <Route
-              exact
-              path="/"
-              element={
-                <VerEstudiantes
-                  estudiantes={estudiantes}
-                  setPutIDEs={setPutIDEs}
-                />
-              }
-            />
-            <Route
-              path="/createEstudiante"
-              element={<RegistrarEstudiantes />}
-            />
-            <Route path="/createDocente" element={<RegistrarDocentes />} />
-            <Route path="/createAsesor" element={<RegistrarAsesores />} />
-            <Route path="/createCita" element={<RegistrarCitas />} />
-            <Route
-              exact
-              path="/editEstudiante"
-              element={
-                <EditarEstudiantes putIDEs={putIDEs} setPutIDEs={setPutIDEs} />
-              }
-            />
-            <Route exact path="/createEquipo" element={<CrearEquipos />} />
-            <Route exact path="/readEquipos" element={<VerEquipos />} />
-            <Route exact path="/readDocentes" element={<VerDocentes />} />
-            <Route exact path="/readAsesores" element={<VerAsesores />} />
-          </Routes>
+          <Sidebar />
+          <div className="contenedorPrincipal d-flex flex-column align-items-center justify-content-center">
+            <Routes>
+              <Route
+                exact
+                path="/"
+                element={
+                  <VerEstudiantes
+                    estudiantes={estudiantes}
+                    setPutIDEs={setPutIDEs}
+                  />
+                }
+              />
+              <Route
+                path="/createEstudiante"
+                element={<RegistrarEstudiantes />}
+              />
+              <Route path="/createDocente" element={<RegistrarDocentes />} />
+              <Route path="/createAsesor" element={<RegistrarAsesores />} />
+              <Route path="/createCita" element={<RegistrarCitas />} />
+              <Route
+                exact
+                path="/editEstudiante"
+                element={
+                  <EditarEstudiantes
+                    putIDEs={putIDEs}
+                    setPutIDEs={setPutIDEs}
+                  />
+                }
+              />
+              <Route exact path="/createEquipo" element={<CrearEquipos />} />
+              <Route exact path="/readEquipos" element={<VerEquipos />} />
+              <Route exact path="/readDocentes" element={<VerDocentes />} />
+              <Route exact path="/readAsesores" element={<VerAsesores />} />
+              <Route
+                exact
+                path="/calendar"
+                element={<Calendar cronograma={cronograma} />}
+              />
+            </Routes>
+          </div>
         </Router>
       </div>
     </div>

@@ -43,33 +43,6 @@ function VerEstudiantes({ estudiantes, setPutIDEs }) {
         </Modal.Footer>
       </Modal>
       <div className="d-flex w-100 flex-column align-items-center">
-        <div className="d-flex w-100 justify-content-around">
-          <Link className="mb-3 btn btn-success" to="/createEstudiante">
-            Crear estudiante
-          </Link>
-          <Link className="mb-3 btn btn-success" to="/createEquipo">
-            Crear equipo
-          </Link>
-          <Link className="mb-3 btn btn-success" to="/createAsesor">
-            Crear asesor
-          </Link>
-          <Link className="mb-3 btn btn-success" to="/createDocente">
-            Crear docente
-          </Link>
-          <Link className="mb-3 btn btn-success" to="/createCita">
-            Crear cita
-          </Link>
-          <Link className="mb-3 btn btn-success" to="/readEquipos">
-            Ver equipos
-          </Link>
-          <Link className="mb-3 btn btn-success" to="/readDocentes">
-            Ver docentes
-          </Link>
-          <Link className="mb-3 btn btn-success" to="/readAsesores">
-            Ver asesores
-          </Link>
-        </div>
-
         <table className="table">
           <thead>
             <tr>

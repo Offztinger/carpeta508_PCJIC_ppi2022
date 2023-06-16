@@ -7,85 +7,96 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import VerEstudiantes from "./components/VerEstudiantes/VerEstudiantes";
 import RegistrarEstudiantes from "./components/RegistrarEstudiantes/RegistrarEstudiantes";
 import EditarEstudiantes from "./components/EditarEstudiantes/EditarEstudiantes";
+import CrearEquipos from "./components/CrearEquipos/CrearEquipos";
+import VerEquipos from "./components/VerEquipos/VerEquipos";
 import correo from "./icons/envelope.png";
-import calendario from "./icons/calendar-page.png"
-
+import calendario from "./icons/calendar-page.png";
+import RegistrarDocentes from "./components/CrearDocentes/RegistrarDocentes";
+import RegistrarAsesores from "./components/CrearAsesores/RegistrarAsesores";
+import VerDocentes from "./components/VerDocentes/VerDocentes";
+import VerAsesores from "./components/VerAsesores/VerAsesores";
+import RegistrarCitas from "./components/CrearCitas/RegistrarCitas";
 // import RegistrarEstudiantes from "./components/RegistrarEstudiantes/RegistrarEstudiantes";
 
 function App() {
-  
+  function zero() {
+    if (day < 10) {
+      day = "0" + day;
+    }
+    if (month < 10) {
+      month = "0" + month;
+    }
+  }
+
+  const todayDate = new Date();
+  const year = todayDate.getFullYear();
+  let month = todayDate.getMonth() + 1;
+  let day = todayDate.getDate();
+  zero();
+  const today = `${year}-${month}-${day}`;
   const notificationPopup = document.getElementById("notification-popup");
   const closeBtn = document.getElementById("close-btn");
   const [estudiantes, setEstudiantes] = useState([]);
   const [putIDEs, setPutIDEs] = useState();
+  const [cronograma, setCronograma] = useState([]);
+
+  const cronogramaActual = cronograma.filter(
+    (actividad) => actividad.fecha === today
+  );
+
   const fetchApi = async () => {
     const response = await fetch("http://localhost:8080/estudiante", {
       method: "GET",
     });
     const responseJSON = await response.json();
     setEstudiantes(responseJSON);
+    const response2 = await fetch("http://localhost:8080/cronograma", {
+      method: "GET",
+    });
+    const responseJSON2 = await response2.json();
+    setCronograma(responseJSON2);
   };
 
   useEffect(() => {
     fetchApi();
   }, []);
-  document.addEventListener("DOMContentLoaded", function () {
 
-  
-    let popupOpen = false; // Variable para rastrear si la ventana emergente está abierta
-  
-    // Función para mostrar o ocultar la ventana emergente
-    function togglePopup() {
-      const popup = document.getElementById("notification-popup");
-      if (popupOpen) {
-        popup.style.display = "none";
-        popupOpen = false;
-      } else {
-        popup.style.display = "block";
-        popupOpen = true;
-      }
-    }
-    
-    // Agregar un evento de clic al botón de notificación
-    const notificationBtn = document.getElementById("notification-btn");
-    notificationBtn.addEventListener("click", function (event) {
-      event.stopPropagation(); // Detener la propagación del evento de clic para evitar que se cierre la ventana emergente
-      togglePopup();
-    });
-    
-    // Agregar un evento de clic al documento para cerrar la ventana emergente si se hace clic en otro lugar de la página
-    document.addEventListener("click", function (event) {
-      const popup = document.getElementById("notification-popup");
-      if (popupOpen && event.target !== notificationBtn && event.target !== popup && !popup.contains(event.target)) {
-        togglePopup();
-      }
-    });
-    
-    // Agregar un evento de carga para ocultar la ventana emergente al cargar la página
-    window.addEventListener("load", function () {
-      const popup = document.getElementById("notification-popup");
-      popup.style.display = "none";
-      popupOpen = false;
-    });
-  });
+  let popUpOpen = false;
+  const openPopUp = () => {
+    const popUp = document.getElementById("notification-popup");
+    popUpOpen
+      ? (popUp.style.display = "none")
+      : (popUp.style.display = "block");
+    popUpOpen = !popUpOpen;
+  };
+
   return (
     <div>
       <div className="header">
         <div className="logos-header">
-          <img src={calendario} alt="" className="calendario-logo" />
-          <button id="notification-btn"><img src={correo} className="correo-logo" /></button>
+          <button id="notification-btn" onClick={openPopUp}>
+            <img src={correo} className="correo-logo" />
+          </button>
           <div id="notification-popup">
-            <div class="popup-content">
-              <div class="popup-header">
+            <div className="popup-content">
+              <div className="popup-header">
                 <h3>Notificaciones</h3>
-                <button id="close-btn"><i class="fa fa-times" aria-hidden="true"></i></button>
+                <button id="close-btn">
+                  <i className="fa fa-times" aria-hidden="true"></i>
+                </button>
               </div>
-              <ul class="notifications-list">
-                <li><a href="#">Notificación 1</a></li>
-                <li><a href="#">Notificación 2</a></li>
-                <li><a href="#">Notificación 3</a></li>
-                <li><a href="#">Notificación 4</a></li>
-                <li><a href="#">Notificación 5</a></li>
+              <ul className="notifications-list">
+                {cronogramaActual.map((actividades, index) => {
+                  return (
+                    <li className="d-flex justify-content-start" key={index}>
+                      <a href="#">
+                        <strong>Actividad: </strong>
+                        {actividades.titulo} <strong>Hora: </strong>
+                        {actividades.hora_inicio}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
@@ -108,6 +119,9 @@ function App() {
               path="/createEstudiante"
               element={<RegistrarEstudiantes />}
             />
+            <Route path="/createDocente" element={<RegistrarDocentes />} />
+            <Route path="/createAsesor" element={<RegistrarAsesores />} />
+            <Route path="/createCita" element={<RegistrarCitas />} />
             <Route
               exact
               path="/editEstudiante"
@@ -115,6 +129,10 @@ function App() {
                 <EditarEstudiantes putIDEs={putIDEs} setPutIDEs={setPutIDEs} />
               }
             />
+            <Route exact path="/createEquipo" element={<CrearEquipos />} />
+            <Route exact path="/readEquipos" element={<VerEquipos />} />
+            <Route exact path="/readDocentes" element={<VerDocentes />} />
+            <Route exact path="/readAsesores" element={<VerAsesores />} />
           </Routes>
         </Router>
       </div>

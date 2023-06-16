@@ -50,8 +50,23 @@ function VerEstudiantes({ estudiantes, setPutIDEs }) {
           <Link className="mb-3 btn btn-success" to="/createEquipo">
             Crear equipo
           </Link>
+          <Link className="mb-3 btn btn-success" to="/createAsesor">
+            Crear asesor
+          </Link>
+          <Link className="mb-3 btn btn-success" to="/createDocente">
+            Crear docente
+          </Link>
+          <Link className="mb-3 btn btn-success" to="/createCita">
+            Crear cita
+          </Link>
           <Link className="mb-3 btn btn-success" to="/readEquipos">
             Ver equipos
+          </Link>
+          <Link className="mb-3 btn btn-success" to="/readDocentes">
+            Ver docentes
+          </Link>
+          <Link className="mb-3 btn btn-success" to="/readAsesores">
+            Ver asesores
           </Link>
         </div>
 
@@ -91,7 +106,7 @@ function VerEstudiantes({ estudiantes, setPutIDEs }) {
                     </Link>
                     <button
                       type="button"
-                      class="btn btn-danger"
+                      className="btn btn-danger"
                       onClick={() => {
                         setShow(true);
                         setDeleteIDEs(estudiante.documento);

@@ -4,24 +4,24 @@ import { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-function VerEquipos() {
-  const [equipos, setEquipos] = useState([]);
+function VerDocentes() {
+  const [docentes, setDocentes] = useState([]);
   const [deleteIDEs, setDeleteIDEs] = useState();
   const [show, setShow] = useState(false);
   const fetchApi = async () => {
-    const response = await fetch("http://localhost:8080/equipo", {
+    const response = await fetch("http://localhost:8080/docente", {
       method: "GET",
     });
     const responseJSON = await response.json();
-    setEquipos(responseJSON);
+    setDocentes(responseJSON);
   };
 
   useEffect(() => {
     fetchApi();
   }, []);
 
-  const deleteEquipo = () => {
-    const response = fetch(`http://localhost:8080/equipo/${deleteIDEs}`, {
+  const deleteDocente = () => {
+    const response = fetch(`http://localhost:8080/docente/${deleteIDEs}`, {
       method: "DELETE",
     });
     // console.log("DELETE status" + response.status());
@@ -46,7 +46,7 @@ function VerEquipos() {
             className="btn btn-warning"
             onClick={() => {
               setShow(false);
-              deleteEquipo();
+              deleteDocente();
             }}
           >
             Sí, deseo eliminarlo
@@ -56,27 +56,34 @@ function VerEquipos() {
       <table className="table">
         <thead>
           <tr>
-            <th scope="col">Nombre Completo</th>
+            <th scope="col">Documento</th>
+            <th scope="col">Nombre docente</th>
+            <th scope="col">Correo educativo</th>
             <th scope="col">Modulo Sol</th>
-            <th scope="col">Docente Encargado</th>
-            <th scope="col">Numero Equipo</th>
+            <th scope="col">Tipo de modulo</th>
+            <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {equipos.map((equipo, index) => {
+          {docentes.map((docente, index) => {
             return (
               <tr key={index}>
-                <td>{equipo.nombre_completo}</td>
-                <td>{equipo.modulo_sol}</td>
-                <td>{equipo.docente_encargado}</td>
-                <td>{equipo.numero_equipo}</td>
+                <td>{docente.documento}</td>
+                <td>{docente.nombre_completo}</td>
+                <td>{docente.correo_educativo}</td>
+                <td>{docente.modulo_sol}</td>
+                <td>
+                  {docente.tipo_modulo != 2
+                    ? "Modulo Sol Principal"
+                    : "Modulo Sol Alternativo"}
+                </td>
                 <td>
                   <button
                     type="button"
                     className="btn btn-danger"
                     onClick={() => {
                       setShow(true);
-                      setDeleteIDEs(equipo.id);
+                      setDeleteIDEs(docente.id);
                     }}
                   >
                     Eliminar
@@ -91,4 +98,4 @@ function VerEquipos() {
   );
 }
 
-export default VerEquipos;
+export default VerDocentes;

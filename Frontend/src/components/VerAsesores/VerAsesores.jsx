@@ -4,24 +4,24 @@ import { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-function VerEquipos() {
-  const [equipos, setEquipos] = useState([]);
+function VerAsesores() {
+  const [asesores, setAsesores] = useState([]);
   const [deleteIDEs, setDeleteIDEs] = useState();
   const [show, setShow] = useState(false);
   const fetchApi = async () => {
-    const response = await fetch("http://localhost:8080/equipo", {
+    const response = await fetch("http://localhost:8080/asesor", {
       method: "GET",
     });
     const responseJSON = await response.json();
-    setEquipos(responseJSON);
+    setAsesores(responseJSON);
   };
 
   useEffect(() => {
     fetchApi();
   }, []);
 
-  const deleteEquipo = () => {
-    const response = fetch(`http://localhost:8080/equipo/${deleteIDEs}`, {
+  const deleteAsesor = () => {
+    const response = fetch(`http://localhost:8080/asesor/${deleteIDEs}`, {
       method: "DELETE",
     });
     // console.log("DELETE status" + response.status());
@@ -46,7 +46,7 @@ function VerEquipos() {
             className="btn btn-warning"
             onClick={() => {
               setShow(false);
-              deleteEquipo();
+              deleteAsesor();
             }}
           >
             Sí, deseo eliminarlo
@@ -56,27 +56,32 @@ function VerEquipos() {
       <table className="table">
         <thead>
           <tr>
-            <th scope="col">Nombre Completo</th>
-            <th scope="col">Modulo Sol</th>
-            <th scope="col">Docente Encargado</th>
-            <th scope="col">Numero Equipo</th>
+            <th scope="col">Documento</th>
+            <th scope="col">Nombre asesor</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Tipo de asesor</th>
+            <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {equipos.map((equipo, index) => {
+          {asesores.map((asesor, index) => {
             return (
               <tr key={index}>
-                <td>{equipo.nombre_completo}</td>
-                <td>{equipo.modulo_sol}</td>
-                <td>{equipo.docente_encargado}</td>
-                <td>{equipo.numero_equipo}</td>
+                <td>{asesor.documento}</td>
+                <td>{asesor.nombre_completo}</td>
+                <td>{asesor.correo_educativo}</td>
+                <td>
+                  {asesor.tipo_asesor != 2
+                    ? "Asesor Metodologico"
+                    : "Asesor Tecnologico"}
+                </td>
                 <td>
                   <button
                     type="button"
                     className="btn btn-danger"
                     onClick={() => {
                       setShow(true);
-                      setDeleteIDEs(equipo.id);
+                      setDeleteIDEs(asesor.id);
                     }}
                   >
                     Eliminar
@@ -91,4 +96,4 @@ function VerEquipos() {
   );
 }
 
-export default VerEquipos;
+export default VerAsesores;

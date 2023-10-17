@@ -5,16 +5,16 @@ import ModalBootstrap from "../ModalBootstrap/ModalBootstrap";
 
 // import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-function RegistrarEstudiantes() {
+function RegistrarCitas() {
   const [show, setShow] = useState(false);
   const [formulario, setFormulario] = useState({
-    documento: "",
-    nombre_completo: "",
-    telefono_fijo: "",
-    celular: "",
-    correo_estudiantil: "",
-    correo_personal: "",
-    codigo_plan: "",
+    numero_cita: 0,
+    titulo: "",
+    fecha: "",
+    hora_inicio: "",
+    hora_fin: "",
+    descripcion: "",
+    lugar: "",
   });
   const [isError, setIsError] = useState(false);
 
@@ -24,18 +24,19 @@ function RegistrarEstudiantes() {
       ...formulario,
       [e.target.name]: inputValue,
     });
+    console.log(formulario);
   }
-  const postEstudiante = () => {
+  const postCita = () => {
     Axios.post(
-      "http://localhost:8080/estudiante",
+      "http://localhost:8080/cronograma",
       {
-        documento: formulario.documento,
-        nombre_completo: formulario.nombre_completo,
-        telefono_fijo: formulario.telefono_fijo,
-        celular: formulario.celular,
-        correo_estudiantil: formulario.correo_estudiantil,
-        correo_personal: formulario.correo_personal,
-        codigo_plan: formulario.codigo_plan,
+        numero_cita: formulario.numero_cita,
+        titulo: formulario.titulo,
+        fecha: formulario.fecha,
+        hora_inicio: formulario.hora_inicio,
+        hora_fin: formulario.hora_fin,
+        descripcion: formulario.descripcion,
+        lugar: formulario.lugar,
       },
       {
         headers: {
@@ -54,7 +55,7 @@ function RegistrarEstudiantes() {
   };
 
   function multipleFunction() {
-    postEstudiante();
+    postCita();
     setShow(true);
   }
 
@@ -64,93 +65,78 @@ function RegistrarEstudiantes() {
         show={show}
         handleClose={() => setShow(false)}
         isError={isError}
-        Msg={'Se ha creado el registro exitosamente'}
+        Msg={"Se ha creado el registro exitosamente"}
       />
-      <h2 style={{ color: "white" }}>Registra un estudiante</h2>
+      <h2 style={{ color: "black" }}>Registra un cita</h2>
       <div>
         <div className="form-group">
-          <label>Documento</label>
-          <input
-            type="number"
-            name="documento"
-            className="form-control"
-            value={formulario.documento}
-            onChange={handleChange}
-          />
-          <small id="emailHelp" className="form-text text-muted">
-            Docente, recuerde colocar el documento de identidad sin errores. Ya
-            que después no sé podrá editar si no se escala con la
-            administración.
-          </small>
-        </div>
-        <div className="form-group">
-          <label>Nombre Completo</label>
+          <label>Titulo</label>
           <input
             type="text"
-            name="nombre_completo"
+            name="titulo"
             className="form-control"
-            value={formulario.nombre_completo}
+            value={formulario.titulo}
             onChange={handleChange}
           />
         </div>
         <div className="form-group">
-          <label>Telefono Fijo</label>
+          <label>Fecha</label>
           <input
-            type="number"
-            name="telefono_fijo"
+            type="date"
+            name="fecha"
             className="form-control"
-            value={formulario.telefono_fijo}
+            value={formulario.fecha}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Hora inicio</label>
+          <input
+            type="time"
+            name="hora_inicio"
+            className="form-control"
+            value={formulario.hora_inicio}
             onChange={handleChange}
           />
         </div>
         <div className="form-group">
-          <label>Celular</label>
+          <label>Hora fin</label>
           <input
-            type="number"
-            name="celular"
+            type="time"
+            name="hora_fin"
             className="form-control"
-            value={formulario.celular}
+            value={formulario.hora_fin}
             onChange={handleChange}
           />
         </div>
         <div className="form-group">
-          <label>Correo institucional</label>
+          <label>Descripcion</label>
           <input
-            type="email"
-            name="correo_estudiantil"
+            type="textarea"
+            name="descripcion"
             className="form-control"
-            value={formulario.correo_estudiantil}
+            value={formulario.descripcion}
             onChange={handleChange}
           />
         </div>
         <div className="form-group">
-          <label>Correo Personal</label>
+          <label>Lugar</label>
           <input
-            type="email"
-            name="correo_personal"
+            type="text"
+            name="lugar"
             className="form-control"
-            value={formulario.correo_personal}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Código Plan</label>
-          <input
-            type="number"
-            name="codigo_plan"
-            className="form-control"
-            value={formulario.codigo_plan}
+            value={formulario.lugar}
             onChange={handleChange}
           />
         </div>
         <div className="form-group">
           <button onClick={multipleFunction} className="btn btn-success">
-            Crear estudiante
+            Crear citas
           </button>
         </div>
       </div>
     </div>
   );
 }
-
-export default RegistrarEstudiantes;
+export default RegistrarCitas;

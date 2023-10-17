@@ -43,18 +43,6 @@ function VerEstudiantes({ estudiantes, setPutIDEs }) {
         </Modal.Footer>
       </Modal>
       <div className="d-flex w-100 flex-column align-items-center">
-        <div className="d-flex w-100 justify-content-around">
-          <Link className="mb-3 btn btn-success" to="/createEstudiante">
-            Crear estudiante
-          </Link>
-          <Link className="mb-3 btn btn-success" to="/createEquipo">
-            Crear equipo
-          </Link>
-          <Link className="mb-3 btn btn-success" to="/readEquipos">
-            Ver equipos
-          </Link>
-        </div>
-
         <table className="table">
           <thead>
             <tr>
@@ -91,7 +79,7 @@ function VerEstudiantes({ estudiantes, setPutIDEs }) {
                     </Link>
                     <button
                       type="button"
-                      class="btn btn-danger"
+                      className="btn btn-danger"
                       onClick={() => {
                         setShow(true);
                         setDeleteIDEs(estudiante.documento);

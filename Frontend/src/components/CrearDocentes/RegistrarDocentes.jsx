@@ -5,16 +5,14 @@ import ModalBootstrap from "../ModalBootstrap/ModalBootstrap";
 
 // import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-function RegistrarEstudiantes() {
+function RegistrarDocentes() {
   const [show, setShow] = useState(false);
   const [formulario, setFormulario] = useState({
-    documento: "",
+    documento: 0,
     nombre_completo: "",
-    telefono_fijo: "",
-    celular: "",
-    correo_estudiantil: "",
-    correo_personal: "",
-    codigo_plan: "",
+    correo_educativo: "",
+    modulo_sol: "",
+    tipo_modulo: 0,
   });
   const [isError, setIsError] = useState(false);
 
@@ -25,17 +23,15 @@ function RegistrarEstudiantes() {
       [e.target.name]: inputValue,
     });
   }
-  const postEstudiante = () => {
+  const postDocente = () => {
     Axios.post(
-      "http://localhost:8080/estudiante",
+      "http://localhost:8080/docente",
       {
         documento: formulario.documento,
         nombre_completo: formulario.nombre_completo,
-        telefono_fijo: formulario.telefono_fijo,
-        celular: formulario.celular,
-        correo_estudiantil: formulario.correo_estudiantil,
-        correo_personal: formulario.correo_personal,
-        codigo_plan: formulario.codigo_plan,
+        correo_educativo: formulario.correo_educativo,
+        modulo_sol: formulario.modulo_sol,
+        tipo_modulo: formulario.tipo_modulo,
       },
       {
         headers: {
@@ -54,7 +50,7 @@ function RegistrarEstudiantes() {
   };
 
   function multipleFunction() {
-    postEstudiante();
+    postDocente();
     setShow(true);
   }
 
@@ -64,9 +60,9 @@ function RegistrarEstudiantes() {
         show={show}
         handleClose={() => setShow(false)}
         isError={isError}
-        Msg={'Se ha creado el registro exitosamente'}
+        Msg={"Se ha creado el registro exitosamente"}
       />
-      <h2 style={{ color: "white" }}>Registra un estudiante</h2>
+      <h2 style={{ color: "black" }}>Registra un docente</h2>
       <div>
         <div className="form-group">
           <label>Documento</label>
@@ -93,59 +89,57 @@ function RegistrarEstudiantes() {
             onChange={handleChange}
           />
         </div>
+
         <div className="form-group">
-          <label>Telefono Fijo</label>
-          <input
-            type="number"
-            name="telefono_fijo"
-            className="form-control"
-            value={formulario.telefono_fijo}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Celular</label>
-          <input
-            type="number"
-            name="celular"
-            className="form-control"
-            value={formulario.celular}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Correo institucional</label>
+          <label>Correo educativo</label>
           <input
             type="email"
-            name="correo_estudiantil"
+            name="correo_educativo"
             className="form-control"
-            value={formulario.correo_estudiantil}
+            value={formulario.correo_educativo}
             onChange={handleChange}
           />
         </div>
         <div className="form-group">
-          <label>Correo Personal</label>
+          <label>Modulo Sol</label>
           <input
-            type="email"
-            name="correo_personal"
+            type="text"
+            name="modulo_sol"
             className="form-control"
-            value={formulario.correo_personal}
+            value={formulario.modulo_sol}
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
-          <label>Código Plan</label>
+        <div className="input-group-text w-100 mt-3">
           <input
-            type="number"
-            name="codigo_plan"
-            className="form-control"
-            value={formulario.codigo_plan}
+            className="form-check-input mt-0"
+            name="tipo_modulo"
+            type="radio"
+            value="1"
             onChange={handleChange}
+            aria-label="Modulo Sol Principal"
           />
+          <p style={{ marginLeft: "16px" }} className="ml-5 mb-0">
+            Modulo Sol Principal
+          </p>
         </div>
+        <div className="input-group-text w-100 mt-3">
+          <input
+            className="form-check-input mt-0"
+            name="tipo_modulo"
+            type="radio"
+            value="2"
+            onChange={handleChange}
+            aria-label="Modulo Sol Alternativo"
+          />
+          <p style={{ marginLeft: "16px" }} className="mb-0">
+            Modulo Sol Alternativo
+          </p>
+        </div>
+
         <div className="form-group">
           <button onClick={multipleFunction} className="btn btn-success">
-            Crear estudiante
+            Crear docentes
           </button>
         </div>
       </div>
@@ -153,4 +147,4 @@ function RegistrarEstudiantes() {
   );
 }
 
-export default RegistrarEstudiantes;
+export default RegistrarDocentes;

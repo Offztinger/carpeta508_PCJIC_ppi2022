@@ -2,8 +2,10 @@
 import { useEffect, useState } from "react";
 // import { backendURL } from "../../../config/constants";
 // import { estudiante } from "../../../config/constants";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./styles/styles.css";
+import "../../../styles/styles.css";
+import correo from "../../../icons/envelope.png";
+import calendario from "../../../icons/calendar-page.png";
+import Image from "next/image";
 
 export default function HomePageChildren() {
   //   function zero() {
@@ -15,21 +17,22 @@ export default function HomePageChildren() {
   //     }
   //   }
 
-  //   const todayDate = new Date();
-  //   const year = todayDate.getFullYear();
-  //   let month = todayDate.getMonth() + 1;
-  //   let day = todayDate.getDate();
+  const todayDate = new Date();
+  const year = todayDate.getFullYear();
+  let month = todayDate.getMonth() + 1;
+  let day = todayDate.getDate();
   //   zero();
-  //   const today = `${year}-${month}-${day}`;
+  const today = `${year}-${month}-${day}`;
   const notificationPopup = document.getElementById("notification-popup");
   const closeBtn = document.getElementById("close-btn");
   const [estudiantes, setEstudiantes] = useState([]);
   const [putIDEs, setPutIDEs] = useState();
   const [cronograma, setCronograma] = useState([]);
+
   //   Yeah, it's working.
-  //   const cronogramaActual = cronograma.filter(
-  //     (actividad) => actividad.fecha === today
-  //   );
+  const cronogramaActual = cronograma.filter(
+    (actividad: { fecha: string }) => actividad.fecha === today
+  );
 
   const fetchApi = async () => {
     const response = await fetch("http://localhost:8080/estudiante", {
@@ -65,7 +68,7 @@ export default function HomePageChildren() {
       <div className="header">
         <div className="logos-header">
           <button id="notification-btn" onClick={openPopUp}>
-            <img src={correo} className="correo-logo" />
+            <Image src={correo} className="correo-logo" alt="Soy el correo" />
           </button>
           <div id="notification-popup">
             <div className="popup-content">
@@ -76,17 +79,22 @@ export default function HomePageChildren() {
                 </button>
               </div>
               <ul className="notifications-list">
-                {cronogramaActual.map((actividades, index) => {
-                  return (
-                    <li className="d-flex justify-content-start" key={index}>
-                      <a href="#">
-                        <strong>Actividad: </strong>
-                        {actividades.titulo} <strong>Hora: </strong>
-                        {actividades.hora_inicio}
-                      </a>
-                    </li>
-                  );
-                })}
+                {cronogramaActual.map(
+                  (
+                    actividades: { titulo: string; hora_inicio: string },
+                    index
+                  ) => {
+                    return (
+                      <li className="d-flex justify-content-start" key={index}>
+                        <a href="#">
+                          <strong>Actividad: </strong>
+                          {actividades.titulo} <strong>Hora: </strong>
+                          {actividades.hora_inicio}
+                        </a>
+                      </li>
+                    );
+                  }
+                )}
               </ul>
             </div>
           </div>

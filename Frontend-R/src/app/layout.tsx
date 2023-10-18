@@ -1,22 +1,17 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-
-const inter = Inter({ subsets: ['latin'] })
-
-export const metadata: Metadata = {
-  title: 'Create Next App',
-  description: 'Yeah, it is a boilerplate',
-}
-
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <head>
+        <title>React SSR</title>
+      </head>
+      <body>
+        <div id="root">{children}</div>
+        <script src="/dist/bundle.js"></script>
+      </body>
     </html>
-  )
+  );
 }

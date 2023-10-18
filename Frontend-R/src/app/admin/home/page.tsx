@@ -26,7 +26,7 @@ export default function HomePageChildren() {
   const [estudiantes, setEstudiantes] = useState([]);
   const [putIDEs, setPutIDEs] = useState();
   const [cronograma, setCronograma] = useState([]);
-
+  //   Yeah, it's working.
   //   const cronogramaActual = cronograma.filter(
   //     (actividad) => actividad.fecha === today
   //   );

@@ -7,7 +7,7 @@ import correo from "../icons/envelope.png";
 import calendario from "../icons/calendar-page.png";
 import Image from "next/image";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/Sidebar/Sidebar";
 
 export default function RootLayout({
   children,
@@ -125,7 +125,6 @@ export default function RootLayout({
             </div>
           </div>
         </main>
-
         <script src="/dist/bundle.js"></script>
       </body>
     </html>

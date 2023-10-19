@@ -1,4 +1,4 @@
-export default function VerAsesores() {
+export default function CrearCitas() {
   return (
     <main>
       <div>

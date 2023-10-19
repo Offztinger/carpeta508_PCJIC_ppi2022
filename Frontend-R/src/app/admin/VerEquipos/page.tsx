@@ -2,7 +2,7 @@ export default function VerEquipos() {
   return (
     <main>
       <div>
-        <div>XD</div>
+        <div></div>
       </div>
     </main>
   );

@@ -1,4 +1,4 @@
-export default function VerAsesores() {
+export default function EditarEstudiantes() {
   return (
     <main>
       <div>

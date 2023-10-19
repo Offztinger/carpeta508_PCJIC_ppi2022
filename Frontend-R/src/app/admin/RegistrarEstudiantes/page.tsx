@@ -1,4 +1,4 @@
-export default function VerAsesores() {
+export default function HomePageChildren() {
   return (
     <main>
       <div>

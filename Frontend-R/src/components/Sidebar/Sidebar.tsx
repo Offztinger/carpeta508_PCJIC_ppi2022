@@ -30,6 +30,12 @@ export default function Sidebar() {
       <Link className="mb-3 btn btn-success" href="/admin/readAsesores">
         Ver asesores
       </Link>
+      <Link className="mb-3 btn btn-success" href="/admin/readAsesores">
+        Ver asesores
+      </Link>
+      <Link className="mb-3 btn btn-success" href="/admin/home">
+        Ver estudiantes
+      </Link>
       <Link className="mb-3 btn btn-success" href="/admin/calendar">
         Ver calendario
       </Link>

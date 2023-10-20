@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { Link } from "react-router-dom";
+import Link from "next/link";
+import { IEstudiante } from "@/models/models";
 
-function VerEstudiantes({ estudiantes, setPutIDEs }) {
-  const [deleteIDEs, setDeleteIDEs] = useState();
+interface Props {
+  estudiantes: IEstudiante[];
+  setPutIDEs: Dispatch<SetStateAction<string>>;
+}
+
+function VerEstudiantes({ estudiantes, setPutIDEs }: Props) {
+  const [deleteIDEs, setDeleteIDEs] = useState<string>("");
   const [show, setShow] = useState(false);
   const deleteEstudiante = () => {
     const response = fetch(`http://localhost:8080/estudiante/${deleteIDEs}`, {
@@ -73,7 +79,7 @@ function VerEstudiantes({ estudiantes, setPutIDEs }) {
                       type="button"
                       className="btn btn-success"
                       onClick={() => setPutIDEs(estudiante.documento)}
-                      to="/editEstudiante"
+                      href="/editEstudiante"
                     >
                       Editar
                     </Link>

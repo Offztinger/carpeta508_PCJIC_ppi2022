@@ -105,14 +105,14 @@ function App() {
         </div>
       </div>
 
-      <div className="d-flex">
+      <div className="d-flex" style={{ height: "90vh" }}>
         <Router>
           <Sidebar />
           <div className="contenedorPrincipal d-flex flex-column align-items-center justify-content-center">
             <Routes>
               <Route
                 exact
-                path="/"
+                path="/readEstudiantes"
                 element={
                   <VerEstudiantes
                     estudiantes={estudiantes}

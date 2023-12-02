@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import VerEstudiantes from "./components/VerEstudiantes/VerEstudiantes";
 import RegistrarEstudiantes from "./components/RegistrarEstudiantes/RegistrarEstudiantes";
 import EditarEstudiantes from "./components/EditarEstudiantes/EditarEstudiantes";
-import CrearEquipos from "./components/CrearEquipos/CrearEquipos";
+import CrearEquipos from "./components/CrearEquipos/CrearEquiposCopy";
 import VerEquipos from "./components/VerEquipos/VerEquipos";
 import correo from "./icons/envelope.png";
 import calendario from "./icons/calendar-page.png";
@@ -108,7 +108,7 @@ function App() {
       <div className="d-flex" style={{ height: "90vh" }}>
         <Router>
           <Sidebar />
-          <div className="contenedorPrincipal d-flex flex-column align-items-center justify-content-center">
+          <div style={{height: "90vh"}} className="contenedorPrincipal d-flex flex-column align-items-center justify-content-center">
             <Routes>
               <Route
                 exact

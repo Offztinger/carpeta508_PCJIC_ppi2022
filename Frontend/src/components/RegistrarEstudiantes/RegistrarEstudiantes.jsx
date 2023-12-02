@@ -14,6 +14,7 @@ function RegistrarEstudiantes() {
     celular: "",
     correo_estudiantil: "",
     correo_personal: "",
+    modulo_sol: "",
     codigo_plan: "",
   });
   const [isError, setIsError] = useState(false);
@@ -35,6 +36,7 @@ function RegistrarEstudiantes() {
         celular: formulario.celular,
         correo_estudiantil: formulario.correo_estudiantil,
         correo_personal: formulario.correo_personal,
+        modulo_sol: formulario.modulo_sol,
         codigo_plan: formulario.codigo_plan,
       },
       {
@@ -64,9 +66,9 @@ function RegistrarEstudiantes() {
         show={show}
         handleClose={() => setShow(false)}
         isError={isError}
-        Msg={'Se ha creado el registro exitosamente'}
+        Msg={"Se ha creado el registro exitosamente"}
       />
-      <h2 style={{ color: "white" }}>Registra un estudiante</h2>
+      <h2 style={{ color: "black" }}>Registra un estudiante</h2>
       <div>
         <div className="form-group">
           <label>Documento</label>
@@ -130,6 +132,16 @@ function RegistrarEstudiantes() {
             name="correo_personal"
             className="form-control"
             value={formulario.correo_personal}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Modulo Sol</label>
+          <input
+            type="number"
+            name="modulo_sol"
+            className="form-control"
+            value={formulario.modulo_sol}
             onChange={handleChange}
           />
         </div>

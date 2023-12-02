@@ -53,6 +53,7 @@ function VerEstudiantes({ estudiantes, setPutIDEs }) {
               <th scope="col">Correo Institucional</th>
               <th scope="col">Correo Personal</th>
               <th scope="col">Código Plan</th>
+              <th scope="col">Modulo sol</th>
               <th scope="col">Acciones</th>
             </tr>
           </thead>
@@ -67,6 +68,7 @@ function VerEstudiantes({ estudiantes, setPutIDEs }) {
                   <td>{estudiante.correo_estudiantil}</td>
                   <td>{estudiante.correo_personal}</td>
                   <td>{estudiante.codigo_plan}</td>
+                  <td>{estudiante.modulo_sol}</td>
                   <td>
                     <Link
                       style={{ marginRight: "8px" }}

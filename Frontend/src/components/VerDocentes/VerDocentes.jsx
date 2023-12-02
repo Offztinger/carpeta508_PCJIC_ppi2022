@@ -26,6 +26,7 @@ function VerDocentes() {
     });
     // console.log("DELETE status" + response.status());
   };
+
   return (
     <div>
       <Modal show={show} onHide={() => setShow(false)}>
@@ -83,7 +84,7 @@ function VerDocentes() {
                     className="btn btn-danger"
                     onClick={() => {
                       setShow(true);
-                      setDeleteIDEs(docente.id);
+                      setDeleteIDEs(docente.documento);
                     }}
                   >
                     Eliminar

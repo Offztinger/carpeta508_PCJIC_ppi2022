@@ -51,15 +51,25 @@ function RegistrarDocentes() {
   };
 
   function multipleFunction() {
-    postDocente();
-    setShow(true);
-    setFormulario({
-      documento: 0,
-      nombre_completo: "",
-      correo_educativo: "",
-      modulo_sol: "",
-      tipo_modulo: 0,
-    });
+    if (
+      formulario.documento !== 0 &&
+      formulario.nombre_completo !== "" &&
+      formulario.correo_educativo !== "" &&
+      formulario.modulo_sol !== "" &&
+      formulario.tipo_modulo !== 0
+    ) {
+      postDocente();
+      setShow(true);
+      setFormulario({
+        documento: 0,
+        nombre_completo: "",
+        correo_educativo: "",
+        modulo_sol: "",
+        tipo_modulo: 0,
+      });
+    } else {
+      alert("Por favor, llene todos los campos");
+    }
   }
 
   return (

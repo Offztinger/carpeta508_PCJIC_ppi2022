@@ -49,14 +49,23 @@ function RegistrarAsesores() {
   };
 
   function multipleFunction() {
-    postAsesor();
-    setShow(true);
-    setFormulario({
-      documento: 0,
-      nombre_completo: "",
-      correo_educativo: "",
-      tipo_asesor: 0,
-    });
+    if (
+      formulario.documento !== 0 &&
+      formulario.nombre_completo !== "" &&
+      formulario.correo_educativo !== "" &&
+      formulario.tipo_asesor !== 0
+    ) {
+      postAsesor();
+      setShow(true);
+      setFormulario({
+        documento: 0,
+        nombre_completo: "",
+        correo_educativo: "",
+        tipo_asesor: 0,
+      });
+    } else {
+      alert("Por favor, rellene todos los campos");
+    }
   }
 
   return (

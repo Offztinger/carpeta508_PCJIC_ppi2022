@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import VerEstudiantes from "./components/VerEstudiantes/VerEstudiantes";
 import RegistrarEstudiantes from "./components/RegistrarEstudiantes/RegistrarEstudiantes";
 import EditarEstudiantes from "./components/EditarEstudiantes/EditarEstudiantes";
-import CrearEquipos from "./components/CrearEquipos/CrearEquiposCopy";
+import CrearEquipos from "./components/CrearEquipos/CrearEquipos";
 import VerEquipos from "./components/VerEquipos/VerEquipos";
 import correo from "./icons/envelope.png";
 import calendario from "./icons/calendar-page.png";

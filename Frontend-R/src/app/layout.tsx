@@ -7,7 +7,7 @@ import correo from "../icons/envelope.png";
 import calendario from "../icons/calendar-page.png";
 import Image from "next/image";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/Sidebar/Sidebar";
 
 export default function RootLayout({
   children,
@@ -31,7 +31,6 @@ export default function RootLayout({
   const today = `${year}-${month}-${day}`;
   const notificationPopup = document.getElementById("notification-popup");
   const closeBtn = document.getElementById("close-btn");
-  const [estudiantes, setEstudiantes] = useState([]);
   const [putIDEs, setPutIDEs] = useState();
   const [cronograma, setCronograma] = useState([]);
 
@@ -40,22 +39,6 @@ export default function RootLayout({
     (actividad: { fecha: string }) => actividad.fecha === today
   );
 
-  const fetchApi = async () => {
-    const response = await fetch("http://localhost:8080/estudiante", {
-      method: "GET",
-    });
-    const responseJSON = await response.json();
-    setEstudiantes(responseJSON);
-    const response2 = await fetch("http://localhost:8080/cronograma", {
-      method: "GET",
-    });
-    const responseJSON2 = await response2.json();
-    setCronograma(responseJSON2);
-  };
-
-  useEffect(() => {
-    fetchApi();
-  }, []);
 
   let popUpOpen = false;
   const openPopUp = () => {
@@ -125,7 +108,6 @@ export default function RootLayout({
             </div>
           </div>
         </main>
-
         <script src="/dist/bundle.js"></script>
       </body>
     </html>

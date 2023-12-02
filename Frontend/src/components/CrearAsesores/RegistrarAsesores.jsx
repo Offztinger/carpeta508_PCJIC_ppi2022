@@ -39,6 +39,7 @@ function RegistrarAsesores() {
     )
       .then((res) => {
         console.log(`CÓDIGO POST ESTUDIANTE: ${res.status}`);
+
         setIsError(false);
       })
       .catch((error) => {
@@ -50,6 +51,12 @@ function RegistrarAsesores() {
   function multipleFunction() {
     postAsesor();
     setShow(true);
+    setFormulario({
+      documento: 0,
+      nombre_completo: "",
+      correo_educativo: "",
+      tipo_asesor: 0,
+    });
   }
 
   return (

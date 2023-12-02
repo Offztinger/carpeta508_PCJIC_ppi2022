@@ -46,6 +46,7 @@ function RegistrarCitas() {
     )
       .then((res) => {
         console.log(`CÓDIGO POST ESTUDIANTE: ${res.status}`);
+
         setIsError(false);
       })
       .catch((error) => {
@@ -55,8 +56,34 @@ function RegistrarCitas() {
   };
 
   function multipleFunction() {
-    postCita();
-    setShow(true);
+    if (
+      formulario.titulo !== "" &&
+      formulario.fecha !== "" &&
+      formulario.hora_inicio !== "" &&
+      formulario.hora_fin !== "" &&
+      formulario.descripcion !== "" &&
+      formulario.lugar !== ""
+    ) {
+      const today = new Date();
+      const date = new Date(formulario.fecha);
+      if (date >= today) {
+        postCita();
+        setShow(true);
+        setFormulario({
+          numero_cita: 0,
+          titulo: "",
+          fecha: "",
+          hora_inicio: "",
+          hora_fin: "",
+          descripcion: "",
+          lugar: "",
+        });
+      } else {
+        alert("La fecha no puede ser menor a la actual");
+      }
+    } else {
+      alert("Por favor ingrese todos los datos");
+    }
   }
 
   return (

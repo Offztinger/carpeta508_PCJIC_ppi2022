@@ -81,7 +81,7 @@ function VerAsesores() {
                     className="btn btn-danger"
                     onClick={() => {
                       setShow(true);
-                      setDeleteIDEs(asesor.id);
+                      setDeleteIDEs(asesor.documento);
                     }}
                   >
                     Eliminar

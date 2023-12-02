@@ -4,6 +4,9 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
+import XLSX from 'xlsx-js-style';
+import '../VerEstudiantes/VerEstudiantes.css'
+import download from '../../icons/downloadfile.svg'
 
 function VerEstudiantes({ estudiantes, setPutIDEs }) {
   const [deleteIDEs, setDeleteIDEs] = useState();
@@ -14,6 +17,55 @@ function VerEstudiantes({ estudiantes, setPutIDEs }) {
     });
     // console.log("DELETE status" + response.status());
   };
+
+  const exportToExcel = () => {
+    // Creación del libro de trabajo
+    const wb = XLSX.utils.book_new();
+    // Creación de columnas de datos
+    let row = [[
+      { v: "Documento", t: "s", s: {} },
+      { v: "Nombre Completo", t: "s", s: {} },
+      { v: "Telefono Fijo", t: "s", s: {} },
+      { v: "Celular", t: "s", s: {} },
+      { v: "Correo institucional", t: "s", s: {} },
+      { v: "Correo personal", t: "s", s: {} },
+      { v: "Codigo plan", t: "s", s: {} },
+      { v: "Modulo sol", t: "s", s: {} },
+    ]];
+    estudiantes.forEach(estudiante => {
+      row = [...row, [
+        {
+          v: estudiante.documento, t: "s", s: {}
+        },
+        {
+          v: estudiante.nombre_completo, t: "s", s: {}
+        },
+        {
+          v: estudiante.telefono_fijo, t: "s", s: {}
+        },
+        {
+          v: estudiante.celular, t: "s", s: {}
+        },
+        {
+          v: estudiante.correo_estudiantil, t: "s", s: {}
+        },
+        {
+          v: estudiante.correo_personal, t: "s", s: {}
+        },
+        {
+          v: estudiante.codigo_plan, t: "s", s: {}
+        },
+        {
+          v: estudiante.modulo_sol, t: "s", s: {}
+        }
+
+      ]]
+    })
+    const ws = XLSX.utils.aoa_to_sheet(row);
+    XLSX.utils.book_append_sheet(wb, ws, + "Estudiantes");
+    // Descarga del archivo desde el navegador
+    XLSX.writeFile(wb, "lista" + "Estudiantes" + ".xlsx");
+  }
 
   return (
     <div className="contenedorEstudiantes">
@@ -95,6 +147,14 @@ function VerEstudiantes({ estudiantes, setPutIDEs }) {
             })}
           </tbody>
         </table>
+        <div className="">
+        <a data-tooltip-id="my-tooltip" data-tooltip-content="Hello world!">
+              
+          <button className="" onClick={() => {
+            exportToExcel()
+          }}><img src={download} alt="" style={{height:"45px"}} /></button>
+          </a>
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import Axios from "axios";
 import ModalBootstrap from "../ModalBootstrap/ModalBootstrap";
@@ -47,7 +47,7 @@ function RegistrarAsesores() {
         setIsError(true);
       });
   };
-
+  const [formError, setFormError] = useState(true);
   function multipleFunction() {
     if (
       formulario.documento !== 0 &&
@@ -55,18 +55,29 @@ function RegistrarAsesores() {
       formulario.correo_educativo !== "" &&
       formulario.tipo_asesor !== 0
     ) {
-      postAsesor();
-      setShow(true);
-      setFormulario({
-        documento: 0,
-        nombre_completo: "",
-        correo_educativo: "",
-        tipo_asesor: 0,
-      });
+      if (formulario.correo_educativo.includes("@elpoli.edu.co")) {
+        if (
+          parseInt(formulario.documento) > 0 &&
+          parseInt(formulario.tipo_asesor) > 0
+        ) {
+          setFormError(false);
+        } else {
+          alert("Los campos numericos deben ser mayores a 0");
+        }
+      } else {
+        alert("El correo institucional debe ser de la universidad");
+      }
     } else {
-      alert("Por favor, rellene todos los campos");
+      alert("Valide los datos en el formulario");
     }
   }
+
+  useEffect(() => {
+    if (!formError) {
+      postAsesor();
+      setShow(true);
+    }
+  }, [formError]);
 
   return (
     <div className="d-flex flex-column align-items-center">

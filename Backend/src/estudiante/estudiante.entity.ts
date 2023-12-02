@@ -15,6 +15,8 @@ export class Estudiante {
     @Column()
     correo_personal: string
     @Column()
+    modulo_sol: string
+    @Column()
     codigo_plan: string
 }
 

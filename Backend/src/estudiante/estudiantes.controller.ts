@@ -22,13 +22,8 @@ export class EstudianteController {
   constructor(private readonly estudianteService: EstudianteService) {}
 
   @Post()
-  insertEstudiante(@Res()response, @Body() estudiante: Estudiante) {
-    try {
-      this.estudianteService.insertEstudiante(estudiante);
-      return estudiante.documento;
-    } catch (error) {
-      return response.status(HttpStatus.NOT_FOUND).send("Ups! Algo salió mal.");
-    }
+  async insertEstudiante(@Body() estudiante: Estudiante) {
+    return await this.estudianteService.insertEstudiante(estudiante);
   }
 
   @Get()

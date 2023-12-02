@@ -5,6 +5,8 @@ export class Equipo {
     @PrimaryGeneratedColumn()
     id: number
     @Column()
+    documento: string
+    @Column()
     nombre_completo: string
     @Column()
     modulo_sol: string

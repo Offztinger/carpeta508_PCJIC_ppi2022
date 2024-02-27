@@ -2,8 +2,6 @@ import { ConfigModuleOptions, registerAs } from '@nestjs/config';
 import * as Joi from 'joi';
 
 export interface IConfig {
-  //URL
-  backendUrl: string;
   // JWT
   jwtSecret: string;
   jwtExpiresIn: string;
@@ -21,8 +19,6 @@ export interface IConfig {
 const configurations = registerAs(
   'configEnvs',
   (): IConfig => ({
-    // URL
-    backendUrl: process.env.BACKEND_URL || '',
     // JWT
     jwtSecret: process.env.JWT_SECRET || '',
     jwtExpiresIn: process.env.TOKEN_EXPIRATION || '',
@@ -45,8 +41,6 @@ export function configRoot(): ConfigModuleOptions {
     load: [configurations],
     isGlobal: true,
     validationSchema: Joi.object({
-      // URL
-      BACKEND_URL: Joi.string().required(),
       // JWT
       JWT_SECRET: Joi.string().required(),
       TOKEN_EXPIRATION: Joi.string().required(),

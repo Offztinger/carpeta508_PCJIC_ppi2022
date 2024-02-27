@@ -1,9 +1,8 @@
 import { Controller, Get, Post, Redirect, Req, UseGuards } from '@nestjs/common';
-import { User } from '@prisma/client';
-
 import { AuthService } from './auth.service';
 import { GoogleUser } from './types';
 import { GoogleAuthGuard, LocalAuthGuard } from './guards';
+import { Payload } from './dtos';
 
 @Controller('auth')
 export class AuthController {
@@ -11,7 +10,7 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(LocalAuthGuard)
-  async login(@Req() req: Express.Request & { user: User }) {
+  async login(@Req() req: Express.Request & { user: Payload }) {
     return await this.authService.login(req.user.id);
   }
 

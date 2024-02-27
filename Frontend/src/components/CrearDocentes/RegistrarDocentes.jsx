@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import Axios from "axios";
 import ModalBootstrap from "../ModalBootstrap/ModalBootstrap";
@@ -49,7 +49,7 @@ function RegistrarDocentes() {
         setIsError(true);
       });
   };
-
+  const [formError, setFormError] = useState(true);
   function multipleFunction() {
     if (
       formulario.documento !== 0 &&
@@ -58,19 +58,29 @@ function RegistrarDocentes() {
       formulario.modulo_sol !== "" &&
       formulario.tipo_modulo !== 0
     ) {
-      postDocente();
-      setShow(true);
-      setFormulario({
-        documento: 0,
-        nombre_completo: "",
-        correo_educativo: "",
-        modulo_sol: "",
-        tipo_modulo: 0,
-      });
+      if (formulario.correo_educativo.includes("@elpoli.edu.co")) {
+        if (
+          parseInt(formulario.documento) > 0 &&
+          parseInt(formulario.tipo_modulo) > 0
+        ) {
+          setFormError(false);
+        } else {
+          alert("Los campos numericos deben ser mayores a 0");
+        }
+      } else {
+        alert("El correo institucional debe ser de la universidad");
+      }
     } else {
-      alert("Por favor, llene todos los campos");
+      alert("Valide los datos en el formulario");
     }
   }
+
+  useEffect(() => {
+    if (!formError) {
+      postDocente();
+      setShow(true);
+    }
+  }, [formError]);
 
   return (
     <div className="d-flex flex-column align-items-center">

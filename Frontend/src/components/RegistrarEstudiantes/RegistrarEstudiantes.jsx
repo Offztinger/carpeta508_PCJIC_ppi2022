@@ -107,6 +107,7 @@ function RegistrarEstudiantes() {
   useEffect(() => {
     if (!formError) {
       postEstudiante();
+      setShow(true);
     }
   }, [formError]);
 

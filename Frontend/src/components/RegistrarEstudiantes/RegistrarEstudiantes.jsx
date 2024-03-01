@@ -27,6 +27,7 @@ function RegistrarEstudiantes() {
       [e.target.name]: inputValue,
     });
   }
+
   const postEstudiante = () => {
     if (!formError) {
       Axios.post(

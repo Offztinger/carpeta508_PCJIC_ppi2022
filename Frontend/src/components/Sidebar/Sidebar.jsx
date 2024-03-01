@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-export default function Sidebar() {
+export default function Sidebar({ user }) {
   return (
     <div
       className="d-flex flex-column flex-shrink-0 p-3 text-white"
@@ -154,7 +154,7 @@ export default function Sidebar() {
             height="32"
             className="rounded-circle me-2"
           />
-          <strong>Admin</strong>
+          <strong>{user.email.split('@')[0]}</strong>
         </a>
         <ul
           className="dropdown-menu dropdown-menu-dark text-small shadow"

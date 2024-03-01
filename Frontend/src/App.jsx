@@ -18,6 +18,7 @@ import VerAsesores from "./components/VerAsesores/VerAsesores";
 import RegistrarCitas from "./components/CrearCitas/RegistrarCitas";
 import Calendar from "./components/CalendarComponent/calendarComponet";
 import Sidebar from "./components/Sidebar/Sidebar";
+import Login from "./components/Login/Login";
 // import RegistrarEstudiantes from "./components/RegistrarEstudiantes/RegistrarEstudiantes";
 
 function App() {
@@ -72,13 +73,21 @@ function App() {
     popUpOpen = !popUpOpen;
   };
 
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  const [isLogged, setIsLogged] = useState(false);
+
   return (
     <div>
       <div className="header">
         <div className="logos-header">
-          <button id="notification-btn" onClick={openPopUp}>
-            <img src={correo} className="correo-logo" />
-          </button>
+          {isLogged ? (
+            <button id="notification-btn" onClick={openPopUp}>
+              <img src={correo} className="correo-logo" />
+            </button>
+          ) : null}
           <div id="notification-popup">
             <div className="popup-content">
               <div className="popup-header">
@@ -104,50 +113,67 @@ function App() {
           </div>
         </div>
       </div>
-
       <div className="d-flex" style={{ height: "90vh" }}>
         <Router>
-          <Sidebar />
-          <div style={{height: "90vh"}} className="contenedorPrincipal d-flex flex-column align-items-center justify-content-center">
-            <Routes>
-              <Route
-                exact
-                path="/readEstudiantes"
-                element={
-                  <VerEstudiantes
-                    estudiantes={estudiantes}
-                    setPutIDEs={setPutIDEs}
-                  />
-                }
-              />
-              <Route
-                path="/createEstudiante"
-                element={<RegistrarEstudiantes />}
-              />
-              <Route path="/createDocente" element={<RegistrarDocentes />} />
-              <Route path="/createAsesor" element={<RegistrarAsesores />} />
-              <Route path="/createCita" element={<RegistrarCitas />} />
-              <Route
-                exact
-                path="/editEstudiante"
-                element={
-                  <EditarEstudiantes
-                    putIDEs={putIDEs}
-                    setPutIDEs={setPutIDEs}
-                  />
-                }
-              />
-              <Route exact path="/createEquipo" element={<CrearEquipos />} />
-              <Route exact path="/readEquipos" element={<VerEquipos />} />
-              <Route exact path="/readDocentes" element={<VerDocentes />} />
-              <Route exact path="/readAsesores" element={<VerAsesores />} />
-              <Route
-                exact
-                path="/calendar"
-                element={<Calendar cronograma={cronograma} />}
-              />
-            </Routes>
-          </div>
+          <section
+            className="w-100 justify-content-center"
+            style={{ display: !isLogged ? "flex" : "none" }}
+          >
+            <Login
+              setIsLogged={setIsLogged}
+              isLogged={isLogged}
+              user={user}
+              setUser={setUser}
+            />
+          </section>
+          <section
+            style={{ display: isLogged ? "flex" : "none", overflow: "hidden" }}
+          >
+            <Sidebar user={user} />
+            <div
+              style={{ height: "90vh" }}
+              className="contenedorPrincipal d-flex flex-column align-items-center justify-content-center"
+            >
+              <Routes>
+                <Route
+                  exact
+                  path="/readEstudiantes"
+                  element={
+                    <VerEstudiantes
+                      estudiantes={estudiantes}
+                      setPutIDEs={setPutIDEs}
+                    />
+                  }
+                />
+                <Route
+                  path="/createEstudiante"
+                  element={<RegistrarEstudiantes />}
+                />
+                <Route path="/createDocente" element={<RegistrarDocentes />} />
+                <Route path="/createAsesor" element={<RegistrarAsesores />} />
+                <Route path="/createCita" element={<RegistrarCitas />} />
+                <Route
+                  exact
+                  path="/editEstudiante"
+                  element={
+                    <EditarEstudiantes
+                      putIDEs={putIDEs}
+                      setPutIDEs={setPutIDEs}
+                    />
+                  }
+                />
+                <Route exact path="/createEquipo" element={<CrearEquipos />} />
+                <Route exact path="/readEquipos" element={<VerEquipos />} />
+                <Route exact path="/readDocentes" element={<VerDocentes />} />
+                <Route exact path="/readAsesores" element={<VerAsesores />} />
+                <Route
+                  exact
+                  path="/calendar"
+                  element={<Calendar cronograma={cronograma} />}
+                />
+              </Routes>
+            </div>
+          </section>
         </Router>
       </div>
     </div>
